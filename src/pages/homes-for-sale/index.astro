@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ListingCard from '@/components/ListingCard.astro';
+import LeadForm from '@/components/LeadForm.astro';
+
+const all = await getCollection('listings', ({ data }) => !data.draft);
+const listings = all.sort((a, b) => b.data.list_price - a.data.list_price);
+
+const hasSamples = listings.some(l => l.data.source === 'sample');
+---
+
+<BaseLayout
+  title="Asheville &amp; WNC homes for sale"
+  description="Active homes for sale across Asheville, Black Mountain, Weaverville, Hendersonville, and the surrounding Western North Carolina market — curated by Karin Wulff at Nexus Realty."
+>
+  <section class="mx-auto max-w-6xl px-6 py-12 sm:py-16">
+    <p class="text-xs uppercase tracking-widest text-sun-600">Homes for sale</p>
+    <h1 class="mt-3 font-display text-4xl text-mountain-900 sm:text-5xl">
+      Asheville &amp; WNC homes for sale
+    </h1>
+    <p class="mt-4 max-w-2xl text-lg text-mountain-600">
+      Active inventory across the broader Asheville market — Buncombe, Henderson,
+      and the surrounding counties — sorted by price.
+    </p>
+
+    {hasSamples && (
+      <div class="mt-6 rounded-md border border-sun-300 bg-sun-50 px-4 py-3 text-sm text-mountain-800">
+        <strong>Heads up:</strong> The listings tagged <em>Sample</em> are
+        placeholder content while the live MLS feed is being connected. Real
+        listings will replace them within a few weeks.
+      </div>
+    )}
+
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {listings.map((listing) => <ListingCard listing={listing} />)}
+    </div>
+
+    {listings.length === 0 && (
+      <div class="mt-10 rounded-lg border border-mountain-200 p-12 text-center">
+        <p class="text-mountain-700">No active listings to show right now.</p>
+        <p class="mt-2 text-sm text-mountain-500">
+          The MLS feed is still being set up. Check back soon, or contact Karin
+          for off-market and pre-MLS opportunities.
+        </p>
+      </div>
+    )}
+  </section>
+
+  <section class="bg-cream">
+    <div class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+      <LeadForm
+        source="homes-for-sale-bottom"
+        heading="Looking for something specific?"
+        blurb="Tell me your budget, must-haves, and where in WNC you want to be. I'll come back with listings — including off-market and pre-MLS — that fit."
+      />
+    </div>
+  </section>
+</BaseLayout>

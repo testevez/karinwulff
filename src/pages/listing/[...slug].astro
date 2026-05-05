@@ -1,0 +1,234 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LeadForm from '@/components/LeadForm.astro';
+
+export async function getStaticPaths() {
+  const listings = await getCollection('listings', ({ data }) => !data.draft);
+  return listings.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+
+const priceFormatted = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0,
+}).format(d.list_price);
+
+const fmt = new Intl.NumberFormat('en-US');
+
+const fullAddress = `${d.address.street}, ${d.address.city}, ${d.address.state} ${d.address.zip}`;
+
+// Schema.org JSON-LD: SingleFamilyResidence with embedded Offer for the price.
+// Google's preferred shape for real-estate listings.
+const propertyTypeMap: Record<string, string> = {
+  'single-family': 'SingleFamilyResidence',
+  condo: 'Apartment',
+  townhome: 'House',
+  'multi-family': 'House',
+  'farm-with-residence': 'House',
+};
+const schemaType = propertyTypeMap[d.property_type] ?? 'House';
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': schemaType,
+  name: d.title,
+  description: `${d.beds} bed, ${d.baths} bath ${d.property_type.replace('-', ' ')} in ${d.address.city}, ${d.address.state}.`,
+  image: [d.hero_image, ...d.photos.map((p) => p.src)],
+  numberOfRooms: d.beds,
+  numberOfBedrooms: d.beds,
+  numberOfBathroomsTotal: d.baths,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: d.address.street,
+    addressLocality: d.address.city,
+    addressRegion: d.address.state,
+    postalCode: d.address.zip,
+    addressCountry: 'US',
+  },
+  ...(d.geo && {
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: d.geo.lat,
+      longitude: d.geo.lng,
+    },
+  }),
+  ...(d.sqft && {
+    floorSize: { '@type': 'QuantitativeValue', value: d.sqft, unitCode: 'FTK' },
+  }),
+  ...(d.lot_acres && {
+    lotSize: { '@type': 'QuantitativeValue', value: d.lot_acres, unitText: 'acres' },
+  }),
+  ...(d.year_built && { yearBuilt: d.year_built }),
+  offers: {
+    '@type': 'Offer',
+    price: d.list_price,
+    priceCurrency: 'USD',
+    availability:
+      d.status === 'active' || d.status === 'sample'
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/SoldOut',
+    seller: {
+      '@type': 'RealEstateAgent',
+      name: 'Karin Wulff',
+    },
+  },
+};
+
+const isSample = d.source === 'sample';
+
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
+---
+
+<BaseLayout
+  title={`${d.title} — ${priceFormatted}`}
+  description={`${d.beds} bed, ${d.baths} bath ${d.property_type.replace('-', ' ')} at ${fullAddress}. Asking ${priceFormatted}. Listed by Karin Wulff at Nexus Realty.`}
+  image={d.hero_image}
+  noindex={isSample}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+
+  <article>
+    <!-- Hero gallery -->
+    <section class="bg-mountain-900">
+      <div class="mx-auto max-w-7xl">
+        <div class="grid grid-cols-1 gap-1 sm:grid-cols-3">
+          <div class="sm:col-span-2 sm:row-span-2">
+            <img
+              src={d.hero_image}
+              alt={`${d.title} — exterior`}
+              class="aspect-[4/3] w-full object-cover sm:aspect-[16/10]"
+            />
+          </div>
+          {d.photos.slice(0, 4).map((photo) => (
+            <div>
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                loading="lazy"
+                class="aspect-[4/3] w-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Headline + facts strip -->
+    <section class="border-b border-mountain-100">
+      <div class="mx-auto grid max-w-6xl gap-6 px-6 py-10 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div>
+          {isSample && (
+            <p class="mb-2 text-xs uppercase tracking-widest text-sun-600">Sample listing — placeholder while MLS feed connects</p>
+          )}
+          <h1 class="font-display text-3xl text-mountain-900 sm:text-4xl">{d.title}</h1>
+          <p class="mt-2 text-lg text-mountain-600">
+            <a href={mapsHref} target="_blank" rel="noopener" class="underline-offset-2 hover:text-sun-600">
+              {fullAddress}
+            </a>
+            {d.neighborhood && (<> · <span>{d.neighborhood}</span></>)}
+          </p>
+        </div>
+        <div class="flex flex-col items-start gap-1 lg:items-end">
+          <p class="font-display text-3xl text-mountain-900 sm:text-4xl">{priceFormatted}</p>
+          <p class="text-sm text-mountain-500">Listed {d.listed_on.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+        </div>
+      </div>
+
+      <div class="border-t border-mountain-100 bg-cream">
+        <dl class="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-mountain-100 sm:grid-cols-4 lg:grid-cols-6">
+          <div class="px-6 py-4">
+            <dt class="text-xs uppercase tracking-widest text-mountain-500">Bedrooms</dt>
+            <dd class="font-display text-xl text-mountain-900">{d.beds}</dd>
+          </div>
+          <div class="px-6 py-4">
+            <dt class="text-xs uppercase tracking-widest text-mountain-500">Bathrooms</dt>
+            <dd class="font-display text-xl text-mountain-900">{d.baths}</dd>
+          </div>
+          {d.sqft && (
+            <div class="px-6 py-4">
+              <dt class="text-xs uppercase tracking-widest text-mountain-500">Interior</dt>
+              <dd class="font-display text-xl text-mountain-900">{fmt.format(d.sqft)} <span class="text-sm text-mountain-500">sqft</span></dd>
+            </div>
+          )}
+          {d.lot_acres && (
+            <div class="px-6 py-4">
+              <dt class="text-xs uppercase tracking-widest text-mountain-500">Lot</dt>
+              <dd class="font-display text-xl text-mountain-900">{d.lot_acres.toFixed(2)} <span class="text-sm text-mountain-500">ac</span></dd>
+            </div>
+          )}
+          {d.year_built && (
+            <div class="px-6 py-4">
+              <dt class="text-xs uppercase tracking-widest text-mountain-500">Year built</dt>
+              <dd class="font-display text-xl text-mountain-900">{d.year_built}</dd>
+            </div>
+          )}
+          <div class="px-6 py-4">
+            <dt class="text-xs uppercase tracking-widest text-mountain-500">Type</dt>
+            <dd class="font-display text-xl text-mountain-900">{d.property_type.replace('-', ' ')}</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Body + features -->
+    <section class="mx-auto max-w-6xl px-6 py-12 lg:grid lg:grid-cols-[2fr_1fr] lg:gap-16">
+      <div class="prose max-w-none text-mountain-700">
+        <Content />
+      </div>
+
+      <aside class="mt-10 lg:mt-0">
+        {d.features.length > 0 && (
+          <div class="rounded-lg border border-mountain-200 bg-white p-6">
+            <h2 class="font-display text-lg text-mountain-900">Features</h2>
+            <ul class="mt-3 space-y-1.5 text-sm text-mountain-700">
+              {d.features.map((f) => (
+                <li class="flex gap-2">
+                  <span class="text-sun-600">·</span><span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {(d.taxes_annual || d.hoa_dues_monthly !== undefined) && (
+          <div class="mt-6 rounded-lg border border-mountain-200 bg-white p-6 text-sm text-mountain-700">
+            <h2 class="font-display text-lg text-mountain-900">Costs</h2>
+            <dl class="mt-3 space-y-2">
+              {d.taxes_annual !== undefined && (
+                <div class="flex justify-between">
+                  <dt>Annual taxes</dt>
+                  <dd>${fmt.format(d.taxes_annual)}</dd>
+                </div>
+              )}
+              {d.hoa_dues_monthly !== undefined && (
+                <div class="flex justify-between">
+                  <dt>HOA / month</dt>
+                  <dd>${fmt.format(d.hoa_dues_monthly)}</dd>
+                </div>
+              )}
+            </dl>
+          </div>
+        )}
+      </aside>
+    </section>
+
+    <!-- Tour request -->
+    <section class="bg-cream">
+      <div class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+        <LeadForm
+          source={`listing-${entry.id}`}
+          heading={`Want to see ${d.address.street.replace(/^\d+\s+/, '').split(' ')[0]}?`}
+          blurb="Send me a note and I'll set up a private tour. I'll also tell you, frankly, whether this home is worth the asking price for what you're trying to do."
+        />
+      </div>
+    </section>
+  </article>
+</BaseLayout>

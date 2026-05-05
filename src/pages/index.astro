@@ -1,6 +1,11 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LeadForm from '@/components/LeadForm.astro';
+import ListingCard from '@/components/ListingCard.astro';
+
+const all = await getCollection('listings', ({ data }) => !data.draft && data.featured);
+const featured = all.sort((a, b) => b.data.list_price - a.data.list_price).slice(0, 3);
 ---
 
 <BaseLayout
@@ -91,6 +96,28 @@ import LeadForm from '@/components/LeadForm.astro';
       </ul>
     </div>
   </section>
+
+  <!-- Featured listings -->
+  {featured.length > 0 && (
+    <section class="border-b border-mountain-100">
+      <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <p class="text-xs uppercase tracking-widest text-sun-600">Featured listings</p>
+            <h2 class="mt-3 max-w-3xl font-display text-3xl text-mountain-900 sm:text-4xl">
+              A few homes worth a closer look.
+            </h2>
+          </div>
+          <a href="/homes-for-sale/" class="hidden text-sm text-mountain-700 underline underline-offset-4 hover:text-sun-600 sm:inline-block">
+            See all homes for sale →
+          </a>
+        </div>
+        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {featured.map((listing) => <ListingCard listing={listing} />)}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Coming-soon callout for the tools -->
   <section class="border-b border-mountain-100 bg-mountain-900 text-cream">
