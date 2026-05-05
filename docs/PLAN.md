@@ -1,15 +1,19 @@
-# Karin Wulff Realtor — Lead-Gen Site Plan
+# AVL Curious — Asheville Real Estate Discovery Site (Lead-Gen Plan)
 
 ## Context
 
-Karin Wulff is a Realtor® at Nexus Realty (Arden/Asheville, NC). Her current online presence is fragmented across third-party profiles (Nexus, Zillow, Homes.com, LinkedIn) and a Lovable-generated SPA prototype at [asheville-welcome-hub.lovable.app](https://asheville-welcome-hub.lovable.app/) branded "AVL Living Consulting." That prototype is useful for tone but is a client-rendered SPA with no IDX or SEO infrastructure — not viable for production.
+Karin Wulff is a Realtor® at Nexus Realty (Arden/Asheville, NC). Her current online presence is fragmented across third-party profiles (Nexus, Zillow, Homes.com, LinkedIn) and a Lovable-generated SPA prototype at [asheville-welcome-hub.lovable.app](https://asheville-welcome-hub.lovable.app/). The prototype is useful for tone but is a client-rendered SPA with no IDX or SEO infrastructure — not viable for production.
 
-We are building her **own** site at a personal-brand domain to drive (1) organic SEO, (2) lead volume, and (3) **lead quality**. Land/lot leads and sub-$400K leads aren't worth her time; the funnel must tilt toward $750K+ buyers and relocators (who skew higher-priced).
+We are building a **content-led real estate discovery site** under the **AVL Curious** brand. Karin is the agent behind it, but the brand and the SEO play are content-first, not name-first. The site exists to (1) win **non-branded discovery SEO** (luxury, neighborhood, relocation, lifestyle queries), (2) generate lead volume from people who didn't know Karin before they landed, and (3) gate **lead quality** at the form. Land/lot leads and sub-$400K leads aren't worth her time; the funnel must tilt toward $750K+ buyers and relocators.
+
+**Why not personal-brand-led:** the searches that close high-value deals aren't "Karin Wulff" — they're "Asheville luxury homes," "Biltmore Forest real estate," "moving to Asheville," "[neighborhood] vs [neighborhood]." That's a content-led acquisition lane where a brandable, shareable, link-attracting domain wins. Karin still appears prominently — bio, headshot, brand pillars, contact — but the site's authority compounds under AVL Curious, not under her name.
 
 **Hosting constraint:** static HTML/CSS/JS deployed to AWS S3 to keep monthly costs near zero. No origin server, no SSR at request time.
 
-**Locked decisions** (from Q&A):
-- Brand: **Karin Wulff, Realtor** (personal brand, primary). Relocation/visit packages live as a featured service, not the headline.
+**Locked decisions:**
+- **Primary brand and domain:** **AVL Curious** at `avlcurious.com`. Content-led brand. The homepage hero leads with the *area + lifestyle + buying-discovery* promise, not Karin's name.
+- **Name-capture domain:** `karinwulff.com` registered and 301-redirected to `avlcurious.com` — captures any name-search traffic into the same SEO authority bucket. ~$15/yr insurance.
+- **Karin as the agent of record:** prominent on `/about/`, in the footer (NCREC-required: name + license # + Nexus Realty firm name), in the brand-pillar surfaces, and in lead-form follow-up. The site is hers; the brand is the entry point.
 - Listings: **Build-time MLS feed → static listing pages** (highest SEO upside).
 - Leads: **Email only via 3rd-party form endpoint** (no CRM yet).
 - Audience tilt: **Luxury-leaning, relocation-friendly** — same funnel, luxury-priced hero.
@@ -29,10 +33,10 @@ These six attributes are the differentiators that convert higher-end buyers. The
 
 | Surface | How the pillars show up |
 |---|---|
-| Homepage hero | One-line value prop hits #2 + #5 ("Find — and *win* — the right Asheville home, in the right neighborhood for you"). Sub-hero adds #1 + #3 + #4 in a 3-up. |
-| Homepage social-proof strip | Track-record stats (#6): e.g. "X closings · $Y volume · Z% over asking avoided." |
+| Homepage hero | One-line value prop hits #2 + #5, framed as the AVL Curious promise: "Find — and *win* — the right home in the right corner of WNC." Sub-hero adds #1 + #3 + #4 in a 3-up. Karin's name is in the sub-hero and in the byline-style "with Karin Wulff, Realtor at Nexus Realty," not in the H1. |
+| Homepage social-proof strip | Track-record stats (#6): "X closings · $Y volume · Z% above asking saved." |
 | Homepage testimonial block | Curate quotes that reinforce #1 (easy), #2 (saved me money), #3 (handled everything). |
-| `/about/` | Karin's story → why she's relentless, how she built the WNC network, her relocation perspective (she was a relocator). |
+| `/about/` | Karin's story → why she's relentless, how she built the WNC network, her relocation perspective (she was a relocator). The /about/ page is also where the AVL Curious brand is anchored to a specific human, which Google's E-E-A-T signals reward. |
 | `/buy/` | Lead with #2 + #5 + #4. Sections: "Choosing your community," "Finding hidden value," "Lender & attorney network," "What I handle for you." |
 | `/sell/` | #2 + #3 + #6. Sections: "Pricing strategy," "Marketing & staging coordination," "My recent sold record." |
 | `/relocate/` | #5 first, then #3. Visit packages embed #1. The quiz is the primary CTA on this page. |
@@ -44,9 +48,19 @@ These six attributes are the differentiators that convert higher-end buyers. The
 
 ## Success criteria
 
-- **SEO:** Rank top-3 for "Karin Wulff" + "Karin Wulff Asheville Realtor"; rank page 1 for at least 5 of: `[neighborhood] homes for sale`, `Asheville luxury homes`, `moving to Asheville`, `Biltmore Forest real estate`, `Asheville real estate agent`. Core Web Vitals all green (LCP <2.0s, INP <100ms, CLS <0.05).
-- **Volume:** ≥ 20 qualified form leads/month by month 6.
-- **Quality:** ≥ 40% of leads in the $750K+ budget tier or relocation-with-budget; <10% land-only inquiries (filtered out by form structure and content focus).
+The site wins or loses on **non-branded discovery traffic and lead quality**, not on name SEO.
+
+- **SEO (non-branded discovery is the scoreboard):**
+  - Page 1 for ≥ 8 of these high-intent commercial queries by month 9: `Asheville luxury homes`, `Asheville luxury real estate`, `Biltmore Forest real estate`, `Biltmore Park real estate`, `Walnut Cove real estate`, `Grove Park homes for sale`, `Black Mountain real estate`, `Weaverville real estate`, `Hendersonville luxury homes`, `[neighborhood] homes for sale` (any of the cornerstone neighborhoods).
+  - Page 1 for ≥ 5 of these top-of-funnel relocation/lifestyle queries by month 12: `moving to Asheville`, `relocating to Asheville`, `where to live near Asheville`, `Asheville vs Hendersonville`, `Black Mountain vs Asheville`, `living near Blue Ridge Parkway`, `Asheville neighborhoods guide`.
+  - **The interactive tools** (`/where-should-you-live/`, `/buyer-readiness/`, `/seller-readiness/`) earn ≥ 25 inbound links collectively by month 12 — these are the link-bait engine.
+  - Core Web Vitals all green sitewide (LCP <2.0s, INP <100ms, CLS <0.05).
+  - "Karin Wulff" name search is NOT a target — it's expected to be served by the `karinwulff.com` 301 + her existing GBP / Zillow / Nexus / homes.com profiles. Tracking but not optimizing for it.
+- **Volume:** ≥ 20 qualified form leads/month by month 6, ≥ 40 qualified leads/month by month 12.
+- **Quality:**
+  - ≥ 40% of leads in the $750K+ budget tier or relocation-with-budget by month 6.
+  - <10% land-only inquiries (filtered by form structure and content focus).
+  - Tool-sourced leads (any of the three calculators) outperform cold form leads on closing rate — measure and tune at month 6.
 
 ## Tech stack
 
@@ -266,28 +280,41 @@ Real estate sites are a serial-plaintiff target. Build to **WCAG 2.1 AA** from d
 
 ## SEO strategy
 
+The strategy is **content-led discovery, not name-based local SEO**. We win by stacking topical authority around luxury, neighborhoods, and relocation, with the interactive tools as link-bait engines that compound over time.
+
+**Topical authority (the main lever):**
+- Cornerstone luxury content: `/luxury-homes-asheville/` pillar, the Biltmore Forest / Biltmore Park / Walnut Cove / Grove Park / Reynolds neighborhood pages, and a recurring quarterly luxury market report. These pages must be the deepest, freshest, best-cited treatment of those topics on the open web.
+- Cornerstone relocation content: `/relocate/`, `/relocate/moving-to-asheville/`, `/guides/cost-of-living-asheville/`, `/guides/asheville-property-taxes/`, `/guides/blue-ridge-parkway-living/`. These rank for top-of-funnel queries before buyers know agents exist.
+- Cornerstone lifestyle/long-tail content: `/guides/biking-in-asheville/`, `/guides/hiking-near-asheville/`, the brewery/cocktail/event directories. Lower commercial intent but high link velocity.
+- Quarterly market reports: data-rich, cite-able, refreshed every quarter — these earn the bulk of inbound links over time.
+
+**Link-bait engines (the compounding lever):**
+- The three interactive tools (`/where-should-you-live/`, `/buyer-readiness/`, `/seller-readiness/`) are the most shareable assets on the site. They get linked from Reddit relocation threads, local Facebook groups, lifestyle publications, and other Asheville sites. Every tool needs a great social card, a memorable URL, and pre-generated shareable result pages.
+
 **On-page:**
-- Per-page `<title>`, meta description, canonical, OG/Twitter cards via a shared `<SEO>` Astro component.
-- JSON-LD: `RealEstateAgent` (Karin) on every page header; `LocalBusiness` for the brokerage; `Person` on /about; `Place` on neighborhood pages; `Residence`/`Product` on listings; `BreadcrumbList` site-wide; `FAQPage` on guides where applicable.
+- Per-page `<title>`, meta description, canonical (always pointing at `avlcurious.com`), OG/Twitter cards via a shared `<SEO>` Astro component.
+- JSON-LD: site-wide `RealEstateAgent` (Karin, with the AVL Curious brand as `worksFor` or as the publisher); `LocalBusiness` for Nexus; `Person` on /about; `Place` on neighborhood pages; `Residence`/`Product` on listings; `BreadcrumbList` site-wide; `FAQPage` on guides where applicable. Anchoring the brand to a real licensed human is critical for E-E-A-T; the site is not a faceless content farm.
 - Strict heading hierarchy (one H1, semantic H2/H3).
 - Image alt text discipline — no decorative `alt=""` on content images.
 
-**Site-architecture:**
+**Site architecture:**
 - Hub-and-spoke internal linking. `/luxury-homes-asheville/` (pillar) ↔ each $1M+ neighborhood page ↔ active listings in that neighborhood ↔ relevant guides. Aim for 3–5 contextual internal links per content page.
+- The tools cross-promote each other and feed back into the neighborhood/listing graph.
 - Breadcrumbs on every page.
 - One sitemap, partitioned by section if it grows.
 
 **Performance (SEO ranking factor):**
-- Static HTML, zero JS by default, hydrate only what needs it (search filters, form validation).
+- Static HTML, zero JS by default, hydrate only what needs it (search filters, form validation, tool islands).
 - Inline critical CSS, defer non-critical.
 - Preload hero image, lazy-load below the fold.
 - Self-host fonts (woff2, `font-display: swap`).
 - Brotli at CloudFront, HTTP/3 enabled.
 
-**Local SEO (parallel work, not in-repo):**
-- Google Business Profile — complete, verify, post weekly.
-- NAP (Name, Address, Phone) consistent across all pages and citations.
-- Citations: Nexus website, Zillow, Homes.com, Realtor.com, Yelp, BBB, NAR find-a-realtor — link back to the new site.
+**Off-page:**
+- **Karin's existing third-party profiles get updated to link to `avlcurious.com`**: Nexus profile, Zillow profile, Homes.com profile, LinkedIn, Realtor.com, NAR find-a-realtor. Each is a quality backlink to the new site.
+- **Google Business Profile**: complete, verify, post weekly. Links to `avlcurious.com`. Note: GBP is a name-search asset for "Karin Wulff" / "Realtor near me" queries — it complements the discovery site without competing with it.
+- **Outreach for backlinks**: pitch the three interactive tools to Asheville lifestyle blogs, the local Reddit, relocation Facebook groups, the WNC Magazine, and Mountain Xpress. Each is shareable on its own merit.
+- NAP (Name, Address, Phone) — Karin + Nexus consistent across all pages and external citations.
 
 ## Lead capture & quality filtering
 
@@ -344,20 +371,24 @@ Lead body always includes: form source surface, calculator score band (if applic
 ## AWS infrastructure
 
 ```
-Route 53  (karinwulff.com)
-   │
-   ▼
-CloudFront (HTTPS via ACM, Brotli, HTTP/3, custom error pages, redirect-to-trailing-slash)
+Route 53  (avlcurious.com — primary)        Route 53  (karinwulff.com — name-capture)
+   │                                              │
+   ▼                                              ▼
+CloudFront (HTTPS via ACM, Brotli, HTTP/3,   CloudFront distribution that 301-redirects
+   custom error pages, redirect-to-          all paths → https://avlcurious.com$path
+   trailing-slash)                           (or use S3 redirect bucket — cheaper)
    │
    ▼
 S3 bucket (private, accessed via OAC) — static site assets
 ```
 
+- **Two domains, one site of truth.** `avlcurious.com` serves the site; `karinwulff.com` 301-redirects every path to its `avlcurious.com` equivalent. Implement the redirect via either (a) a tiny S3 redirect-only bucket fronted by its own CloudFront + ACM cert, or (b) a CloudFront Function on the `karinwulff.com` distribution. Option (a) is cheaper at near-zero traffic and simpler to reason about.
 - Bucket policy: deny public; only CloudFront OAC can read.
-- ACM cert in `us-east-1` (CloudFront requirement) for `karinwulff.com` + `www.karinwulff.com`.
+- ACM cert in `us-east-1` (CloudFront requirement) — separate certs for `avlcurious.com`+`www.avlcurious.com` and `karinwulff.com`+`www.karinwulff.com`.
 - CloudFront cache policy: long TTL on `/_astro/*`, `/listings/*` images, fonts; short TTL on HTML.
 - Security headers via CloudFront response-headers policy: HSTS, CSP (allow GA4 + form endpoint), X-Content-Type-Options, Referrer-Policy.
-- Provision via Terraform or AWS CDK in `infra/` (Terraform recommended — simpler for this scope).
+- Provision via Terraform or AWS CDK in `infra/` (Terraform recommended — simpler for this scope). Both domains live in the same Terraform stack.
+- All canonical URLs in the site reference `avlcurious.com`; sitemap, OG/Twitter cards, JSON-LD, internal links, and the `<link rel="canonical">` all point to the AVL Curious origin so SEO authority cannot leak to the redirect domain.
 
 ## "Where Should You Live in WNC?" — neighborhood-match quiz (Fair-Housing-safe)
 
@@ -525,7 +556,7 @@ Anchor the About page in Karin's real story (NJ roots, Rutgers, NY/Catskills rea
 
 ## Open items requiring user input before/during build
 
-1. Confirm domain (default plan assumes `karinwulff.com`).
+1. **Domain decision flipped to AVL Curious primary.** Register `avlcurious.com` (primary) AND `karinwulff.com` (301-redirect, name-capture). Both available as of 2026-05-04 whois check. Antonio registers.
 2. Karin requests Canopy MLS IDX feed credentials via Nexus broker — start this now; it can take 1–4 weeks. While at it, request the current Canopy IDX rules document and the required attribution boilerplate.
 3. Karin sends headshots + a 30-min recorded interview for the About page.
 4. AWS account access for Antonio (assumed available; confirm region preference — `us-east-1` recommended for CloudFront/ACM simplicity).
