@@ -55,11 +55,10 @@ const formatDate = (iso: string | null | undefined) =>
             <dd class="mt-1 font-display text-3xl text-mountain-900">{sorted.length}</dd>
           </div>
           <div class="rounded-lg border border-mountain-200 bg-cream p-6">
-            <dt class="text-xs uppercase tracking-widest text-mountain-500">Verified volume</dt>
+            <dt class="text-xs uppercase tracking-widest text-mountain-500">Total volume</dt>
             <dd class="mt-1 font-display text-3xl text-mountain-900">
               {fmtPrice(totalKnown)}<span class="text-sm text-mountain-400">+</span>
             </dd>
-            <dd class="mt-1 text-xs text-mountain-500">{knownCount} of {sorted.length} prices verified via Zillow</dd>
           </div>
           <div class="rounded-lg border border-mountain-200 bg-cream p-6">
             <dt class="text-xs uppercase tracking-widest text-mountain-500">Average rating</dt>
