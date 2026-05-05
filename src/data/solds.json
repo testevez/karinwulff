@@ -214,6 +214,9 @@
     "zip": "12446",
     "zillow_url": "https://www.zillow.com/homedetails/119-Cedar-Drive-Kerhonkson-NY-12446/32861136_zpid/",
     "year_built": 1998,
-    "lot_acres": 2.6
+    "lot_acres": 2.6,
+    "beds": 3,
+    "baths": 3,
+    "sqft": 3024
   }
 ]
