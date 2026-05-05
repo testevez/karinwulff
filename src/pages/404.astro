@@ -1,0 +1,17 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Not found" description="That page isn't here." noindex={true}>
+  <div class="mx-auto max-w-2xl px-6 py-24 text-center">
+    <p class="font-display text-7xl text-sun-600">404</p>
+    <h1 class="mt-4 font-display text-3xl text-mountain-900">That page isn't here yet.</h1>
+    <p class="mt-4 text-mountain-600">
+      The site is in active build-out. Try the homepage or send Karin a note about what you were looking for.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/" class="rounded-md bg-mountain-900 px-5 py-2 text-cream no-underline hover:bg-sun-600">Go home</a>
+      <a href="/contact/" class="rounded-md border border-mountain-200 px-5 py-2 text-mountain-900 no-underline hover:border-sun-500">Contact Karin</a>
+    </div>
+  </div>
+</BaseLayout>

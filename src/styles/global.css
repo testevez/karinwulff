@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — starting point, easy to tune */
+  --color-mountain-50: #f4f6f7;
+  --color-mountain-100: #e3e8ea;
+  --color-mountain-200: #c2cdd2;
+  --color-mountain-400: #6e8590;
+  --color-mountain-600: #3d5763;
+  --color-mountain-800: #1f3540;
+  --color-mountain-900: #122028;
+
+  --color-sun-50: #fbf6ed;
+  --color-sun-100: #f5e8c8;
+  --color-sun-300: #e6c373;
+  --color-sun-500: #c89544;
+  --color-sun-600: #a87930;
+  --color-sun-800: #6f4d1c;
+
+  --color-cream: #faf7f2;
+  --color-ink: #14181a;
+
+  --font-display: "Fraunces", "Iowan Old Style", "Georgia", serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+a {
+  color: var(--color-mountain-800);
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--color-sun-600);
+}
+
+/* Skip-to-content link for a11y */
+.skip-link {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--color-mountain-900);
+  color: white;
+  text-decoration: none;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* Visible focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-sun-500);
+  outline-offset: 2px;
+}

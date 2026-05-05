@@ -1,0 +1,23 @@
+{
+  "name": "avlcurious-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0",
+    "astro": "astro",
+    "deploy": "aws s3 sync ./dist/ s3://avlcurious-site/ --delete --profile avlcurious && aws cloudfront create-invalidation --distribution-id E3E9O29IZRQIGB --paths '/*' --profile avlcurious"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^5.1.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}

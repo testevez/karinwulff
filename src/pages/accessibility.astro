@@ -1,0 +1,31 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Accessibility Statement"
+  description="AVL Curious's commitment to web accessibility, target conformance, and how to report issues."
+  noindex={true}
+>
+  <article class="mx-auto max-w-3xl px-6 py-16 sm:py-20 prose">
+    <h1 class="font-display text-mountain-900">Accessibility Statement</h1>
+    <p class="text-mountain-500"><em>Draft — last updated 2026-05-05.</em></p>
+
+    <p>AVL Curious is committed to making this site usable for everyone, including people with disabilities. We design and build to <strong>WCAG 2.1 Level AA</strong>.</p>
+
+    <h2>What we do</h2>
+    <ul>
+      <li>Keyboard navigation throughout the site, including a skip-to-content link.</li>
+      <li>Visible focus indicators on every interactive element.</li>
+      <li>Color contrast tested against WCAG AA thresholds.</li>
+      <li>Alt text on every meaningful image; semantic markup for headings, lists, and forms.</li>
+      <li>Forms with explicit labels and clear error messaging.</li>
+    </ul>
+
+    <h2>Known limitations</h2>
+    <p>This site is in active development. If you find an accessibility barrier, please tell us.</p>
+
+    <h2>Contact</h2>
+    <p>To report an accessibility issue or request an alternative format for any content, email <a href="mailto:karin@fuzzywolfsales.com">karin@fuzzywolfsales.com</a> or call <a href="tel:+12017256428">(201) 725-6428</a>. We aim to respond within two business days.</p>
+  </article>
+</BaseLayout>

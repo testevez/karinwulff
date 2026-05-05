@@ -1,0 +1,51 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LeadForm from '@/components/LeadForm.astro';
+---
+
+<BaseLayout
+  title="About Karin Wulff"
+  description="Karin Wulff is a Realtor® at Nexus Realty in Arden, NC. Five years in Asheville after growing up in NJ and selling real estate in the Catskills. AVL Curious is her working guide to the area for buyers."
+>
+  <article class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <p class="text-xs uppercase tracking-widest text-sun-600">About</p>
+    <h1 class="mt-3 font-display text-4xl text-mountain-900 sm:text-5xl">
+      Hi, I'm Karin.
+    </h1>
+    <div class="prose mt-6 max-w-none text-lg text-mountain-700">
+      <p>
+        I'm Tony's wife and Siena's mom, and as of the last five years, a proud
+        resident of Asheville. Before here I lived in New Jersey, went to Rutgers,
+        and then sold real estate in the Catskills before our family decided to
+        set roots somewhere we'd actually want to spend the rest of our lives.
+      </p>
+      <p>
+        That's the perspective I bring to every relocator I work with: I've made the
+        same move you might be thinking about. I know the part nobody tells you —
+        about the tax assessor, the contractor backlog, what it's like in February,
+        which neighborhoods you should walk before you tour homes in them.
+      </p>
+      <p>
+        AVL Curious exists because most real estate sites are stale. Buyers researching
+        a move to Asheville deserve a working guide, not a brochure. So I'm building
+        one — neighborhoods, market data, what's actually for sale, and three small
+        tools that help you figure out where to start. Karin Wulff at Nexus Realty
+        is the agent behind it.
+      </p>
+    </div>
+
+    <hr class="my-12 border-mountain-100" />
+
+    <h2 class="font-display text-2xl text-mountain-900">A few details</h2>
+    <ul class="mt-4 space-y-2 text-mountain-700">
+      <li><strong>Brokerage:</strong> Nexus Realty, 100 Julian Shoals Drive, Arden, NC 28704</li>
+      <li><strong>Areas covered:</strong> Buncombe, Henderson, Madison, Haywood — Asheville, Black Mountain, Weaverville, Hendersonville, Brevard, Lake Lure, and the smaller corners between them.</li>
+      <li><strong>Direct:</strong> <a href="tel:+12017256428">(201) 725-6428</a></li>
+      <li><strong>Email:</strong> <a href="mailto:karin@fuzzywolfsales.com">karin@fuzzywolfsales.com</a></li>
+    </ul>
+
+    <div class="mt-12">
+      <LeadForm source="about-bottom" heading="Want to talk?" blurb="Drop a note. I'll come back within a day, and we'll figure out if working together makes sense." />
+    </div>
+  </article>
+</BaseLayout>

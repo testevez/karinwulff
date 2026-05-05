@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LeadForm from '@/components/LeadForm.astro';
+---
+
+<BaseLayout
+  title="Selling your Asheville-area home"
+  description="Pricing strategy, prep coordination, and a marketing plan that gets the right buyers through the door. With Karin Wulff at Nexus Realty."
+>
+  <article class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <p class="text-xs uppercase tracking-widest text-sun-600">Selling</p>
+    <h1 class="mt-3 font-display text-4xl text-mountain-900 sm:text-5xl">
+      A pricing strategy, a prep crew, and a marketing plan.
+    </h1>
+    <p class="mt-6 max-w-prose text-lg text-mountain-600">
+      Selling your home in WNC isn't just listing it. It's the prep, the photos,
+      the staging, the pricing decision, and the marketing reach. I run all of it —
+      so you're not coordinating five vendors yourself.
+    </p>
+
+    <section class="mt-12">
+      <h2 class="font-display text-2xl text-mountain-900">Pricing strategy</h2>
+      <p class="mt-3 text-mountain-700">
+        I'll prepare a detailed comparative market analysis (CMA) using the actual
+        comps in your micro-market — not a Zillow estimate. We'll talk through three
+        strategies (aggressive-for-speed, market-price, aspirational) and pick the one
+        that matches your timeline and goals.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="font-display text-2xl text-mountain-900">Prep, staging, and photography</h2>
+      <p class="mt-3 text-mountain-700">
+        I have a small group of photographers, stagers, painters, and contractors I trust.
+        We'll walk through the house together, agree on what's worth doing, and I'll
+        coordinate the schedule so it's done before listing photos.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="font-display text-2xl text-mountain-900">Marketing &amp; reach</h2>
+      <p class="mt-3 text-mountain-700">
+        Beyond the MLS — featured placement on AVL Curious, targeted ads to relocator
+        audiences, and the usual portal syndication. Premium homes get premium attention.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="font-display text-2xl text-mountain-900">My recent sold record</h2>
+      <p class="mt-3 text-mountain-700">
+        Recent transactions and reviews are visible on my
+        <a href="https://www.zillow.com/profile/wolfgrl1" target="_blank" rel="noopener">Zillow profile</a>
+        and <a href="https://www.homes.com/real-estate-agents/karin-wulff/el9tr5p/" target="_blank" rel="noopener">Homes.com profile</a>.
+        A curated <code>/sold/</code> page is coming as we publish more transactions here directly.
+      </p>
+    </section>
+
+    <div class="mt-16">
+      <LeadForm source="sell-bottom" heading="Curious what your home would list for?" blurb="Drop your address and timeline and I'll come back with a free, real-comp market analysis." />
+    </div>
+  </article>
+</BaseLayout>

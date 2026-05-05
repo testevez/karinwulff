@@ -1,0 +1,41 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LeadForm from '@/components/LeadForm.astro';
+---
+
+<BaseLayout
+  title="Contact Karin Wulff"
+  description="Reach Karin Wulff, Realtor® at Nexus Realty in Arden, NC. Direct phone, email, and a contact form for buyers, sellers, and relocators."
+>
+  <div class="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+    <p class="text-xs uppercase tracking-widest text-sun-600">Contact</p>
+    <h1 class="mt-3 font-display text-4xl text-mountain-900 sm:text-5xl">
+      Let's talk.
+    </h1>
+    <p class="mt-6 max-w-prose text-lg text-mountain-600">
+      The fastest path is the form below. If you'd rather reach me directly, here's how.
+    </p>
+
+    <div class="mt-12 grid gap-12 lg:grid-cols-3">
+      <aside class="space-y-8 text-mountain-700">
+        <div>
+          <h2 class="font-display text-lg text-mountain-900">Karin Wulff</h2>
+          <p>Realtor® at Nexus Realty</p>
+          <p class="mt-1"><a href="tel:+12017256428">(201) 725-6428</a></p>
+          <p><a href="mailto:karin@fuzzywolfsales.com">karin@fuzzywolfsales.com</a></p>
+        </div>
+        <div>
+          <h2 class="font-display text-lg text-mountain-900">Brokerage</h2>
+          <p>Nexus Realty</p>
+          <p>100 Julian Shoals Drive</p>
+          <p>Arden, NC 28704</p>
+          <p class="mt-1">Office: <a href="tel:+18285852188">(828) 585-2188</a></p>
+        </div>
+      </aside>
+
+      <div class="lg:col-span-2">
+        <LeadForm variant="full" source="contact-page" heading="Send me a note." blurb="Walk me through what you're working on. I'll come back within a day." />
+      </div>
+    </div>
+  </div>
+</BaseLayout>
