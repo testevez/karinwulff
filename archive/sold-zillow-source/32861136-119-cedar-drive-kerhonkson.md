@@ -74,7 +74,7 @@ Date on market: 4/1/2026
 | 11/3/2025 | Listed for rent | $3,500 ($1/sqft) — Zillow Rentals |
 | 10/15/2025 | Price change | $639,000 (-8.6%) ($211/sqft) — HVCRMLS #20251537 |
 
-(No "Sold" event for Karin's transaction visible in the truncated price history.)
+(No "Sold" event for Karin's transaction visible in the truncated public price history. Karin's actual closing was confirmed via her Zillow agent dashboard: **8/26/2021 · $663,200 · Buyer side**.)
 
 ## Public tax history
 

@@ -121,7 +121,8 @@
     "beds": 3,
     "baths": 2,
     "sqft": 1520,
-    "lot_acres": 0.14
+    "lot_acres": 0.14,
+    "represented": "buyer"
   },
   {
     "zpid": "30504632",
@@ -136,7 +137,8 @@
     "sale_price": 925000,
     "beds": 5,
     "baths": 3,
-    "sqft": 3700
+    "sqft": 3700,
+    "represented": "buyer"
   },
   {
     "zpid": "32884903",
@@ -151,7 +153,8 @@
     "sale_price": 575000,
     "beds": 3,
     "baths": 2,
-    "sqft": 1785
+    "sqft": 1785,
+    "represented": "buyer"
   },
   {
     "zpid": "2078717993",
@@ -166,7 +169,8 @@
     "beds": 2,
     "baths": 2,
     "sqft": 1290,
-    "lot_acres": 0.014
+    "lot_acres": 0.014,
+    "represented": "buyer"
   },
   {
     "zpid": "32850244",
@@ -181,7 +185,8 @@
     "baths": 1,
     "sqft": 900,
     "year_built": 1860,
-    "lot_acres": 3.0
+    "lot_acres": 3.0,
+    "represented": "buyer"
   },
   {
     "zpid": "32864162",
@@ -196,7 +201,8 @@
     "sale_price": 360000,
     "beds": 3,
     "baths": 2,
-    "sqft": 1824
+    "sqft": 1824,
+    "represented": "buyer"
   },
   {
     "zpid": "32838192",
@@ -211,7 +217,24 @@
     "beds": 2,
     "baths": 2,
     "sqft": 960,
-    "lot_acres": 0.14
+    "lot_acres": 0.14,
+    "represented": "buyer"
+  },
+  {
+    "zpid": "32861136",
+    "street": "119 Cedar Drive",
+    "city": "Kerhonkson",
+    "state": "NY",
+    "zip": "12446",
+    "zillow_url": "https://www.zillow.com/homedetails/119-Cedar-Drive-Kerhonkson-NY-12446/32861136_zpid/",
+    "year_built": 1998,
+    "lot_acres": 2.6,
+    "beds": 3,
+    "baths": 3,
+    "sqft": 3024,
+    "represented": "buyer",
+    "sold_date": "2021-08-26",
+    "sale_price": 663200
   },
   {
     "zpid": "32834761",
@@ -226,7 +249,8 @@
     "beds": 3,
     "baths": 1,
     "sqft": 1057,
-    "lot_acres": 0.2
+    "lot_acres": 0.2,
+    "represented": "buyer"
   },
   {
     "zpid": "32835216",
@@ -241,19 +265,7 @@
     "sale_price": 530000,
     "beds": 2,
     "baths": 2,
-    "sqft": 1731
-  },
-  {
-    "zpid": "32861136",
-    "street": "119 Cedar Drive",
-    "city": "Kerhonkson",
-    "state": "NY",
-    "zip": "12446",
-    "zillow_url": "https://www.zillow.com/homedetails/119-Cedar-Drive-Kerhonkson-NY-12446/32861136_zpid/",
-    "year_built": 1998,
-    "lot_acres": 2.6,
-    "beds": 3,
-    "baths": 3,
-    "sqft": 3024
+    "sqft": 1731,
+    "represented": "buyer"
   }
 ]

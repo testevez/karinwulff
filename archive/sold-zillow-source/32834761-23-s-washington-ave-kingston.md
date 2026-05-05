@@ -36,4 +36,4 @@ Region: Kingston
 
 Other facts: Class RESIDENTIAL. Floors: CARPET, HARDWOOD, LINOLEUM. Garage/parking extras: DRIVEWAY. Kitchen description: EAT-IN, CABINETS WOOD. Plumbing: MIXED. Sewer: MUNICIPAL. Water: MUNICIPAL. Construction: FRAME/STICK. Electricity: 100 AMPS. Cooling: CENTRAL. Heat source: FORCED AIR. Other buildings: SHED. Heating fuel: NATURAL GAS. Internet access: CABLE. Style: RANCH. Hot water: GAS. Lot/site: CITY. Driveway: BLACKTOP. Roof: FBRGL SHNGL. Interior features: INSULATED WINDOWS, INSULATED DOORS. Exterior features: LANDSCAPED. County: Ulster. Townships: City of Kingston.
 
-(Karin's sale: 8/19/2021 at $260,000 per earlier extraction; price history was not included in this paste.)
+(Karin's sale: **8/19/2021 at $200,000 · Buyer side** per her Zillow agent dashboard. An earlier OCR pass on a public Zillow page had pulled $260,000 — that was incorrect; the dashboard value is authoritative.)
