@@ -1,0 +1,43 @@
+---
+// GA4 with Google Consent Mode v2.
+// Default state: analytics_storage = denied (cookies blocked).
+// After user accepts the consent banner, we 'consent update' to granted
+// and GA4 starts using its first-party cookies. With Consent Mode v2,
+// even in denied state Google sends anonymized "pings" — we still get
+// aggregate measurement (sessions, events) without identifying users.
+//
+// If PUBLIC_GA_MEASUREMENT_ID is empty, this component renders nothing
+// and no GA4 code loads — useful while the GA4 property is being set up.
+
+const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+
+{measurementId && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+    <script is:inline define:vars={{ measurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+
+      // Consent Mode v2 — default deny everything privacy-sensitive.
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500
+      });
+
+      // Restore prior consent on subsequent visits.
+      try {
+        if (localStorage.getItem('avlc-consent') === 'granted') {
+          gtag('consent', 'update', { analytics_storage: 'granted' });
+        }
+      } catch (_) { /* localStorage may be blocked */ }
+
+      gtag('js', new Date());
+      gtag('config', measurementId, { anonymize_ip: true });
+    </script>
+  </>
+)}

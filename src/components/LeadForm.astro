@@ -38,6 +38,7 @@ const bccEmail = import.meta.env.PUBLIC_FORM_BCC ?? 'tootast@gmail.com';
     method="POST"
     action={formEndpoint}
     class="mt-6 space-y-5"
+    data-leadform-source={source}
     novalidate
   >
     <!-- Web3Forms wiring -->
@@ -147,3 +148,23 @@ const bccEmail = import.meta.env.PUBLIC_FORM_BCC ?? 'tootast@gmail.com';
     </button>
   </form>
 </section>
+
+<script is:inline>
+  // Fire a `generate_lead` GA4 event on submission. Runs before the form
+  // actually POSTs (Web3Forms redirects after success), so we capture the
+  // intent regardless of network outcome. Includes the form source surface
+  // (home-bottom, contact-page, etc.) and the budget/timeline tier so you
+  // can segment lead quality in GA4.
+  document.querySelectorAll('form[data-leadform-source]').forEach(function (form) {
+    form.addEventListener('submit', function () {
+      if (!window.gtag) return;
+      var fd = new FormData(form);
+      window.gtag('event', 'generate_lead', {
+        form_source: form.getAttribute('data-leadform-source'),
+        budget: fd.get('budget') || '',
+        timeline: fd.get('timeline') || '',
+        intent: fd.get('intent') || ''
+      });
+    });
+  });
+</script>

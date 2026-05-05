@@ -3,6 +3,8 @@ import '../styles/global.css';
 import SEO from '@/components/SEO.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
+import Analytics from '@/components/Analytics.astro';
+import ConsentBanner from '@/components/ConsentBanner.astro';
 
 interface Props {
   title: string;
@@ -12,6 +14,7 @@ interface Props {
 }
 
 const { title, description, image, noindex } = Astro.props;
+const analyticsActive = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
 ---
 
 <!doctype html>
@@ -22,6 +25,7 @@ const { title, description, image, noindex } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <SEO title={title} description={description} image={image} noindex={noindex} />
+    <Analytics />
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#main" class="skip-link">Skip to content</a>
@@ -30,5 +34,6 @@ const { title, description, image, noindex } = Astro.props;
       <slot />
     </main>
     <Footer />
+    {analyticsActive && <ConsentBanner />}
   </body>
 </html>
