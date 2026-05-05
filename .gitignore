@@ -5,7 +5,9 @@ node_modules/
 .env
 .env.local
 .env.*.local
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 .idea/
 .ddev/.gitignore
 .ddev/.global_commands/

@@ -1,0 +1,7 @@
+{
+  "python.terminal.useEnvFile": false,
+  "python.envFile": "",
+  "files.associations": {
+    "*.astro": "astro"
+  }
+}
