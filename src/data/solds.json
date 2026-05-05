@@ -181,7 +181,11 @@
     "zillow_url": "https://www.zillow.com/homedetails/193-New-Salem-Rd-Kingston-NY-12401/32838192_zpid/",
     "year_built": 1850,
     "sold_date": "2021-10-27",
-    "sale_price": 220000
+    "sale_price": 220000,
+    "beds": 2,
+    "baths": 2,
+    "sqft": 960,
+    "lot_acres": 0.14
   },
   {
     "zpid": "32834761",
