@@ -1,18 +1,23 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LeadForm from '@/components/LeadForm.astro';
+import TestimonialsSection from '@/components/TestimonialsSection.astro';
+import karinPortrait from '@/assets/karin/karin-portrait.jpg';
 ---
 
 <BaseLayout
   title="About Karin Wulff"
   description="Karin Wulff is a Realtor® at Nexus Realty in Arden, NC. Five years in Asheville after growing up in NJ and selling real estate in the Catskills. AVL Curious is her working guide to the area for buyers."
 >
-  <article class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
-    <p class="text-xs uppercase tracking-widest text-sun-600">About</p>
-    <h1 class="mt-3 font-display text-4xl text-mountain-900 sm:text-5xl">
-      Hi, I'm Karin.
-    </h1>
-    <div class="prose mt-6 max-w-none text-lg text-mountain-700">
+  <article class="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+    <div class="grid gap-10 lg:grid-cols-[1fr_360px] lg:gap-16">
+      <div>
+        <p class="text-xs uppercase tracking-widest text-sun-600">About</p>
+        <h1 class="mt-3 font-display text-4xl text-mountain-900 sm:text-5xl">
+          Hi, I'm Karin.
+        </h1>
+        <div class="prose mt-6 max-w-none text-lg text-mountain-700">
       <p>
         I'm Tony's wife and Siena's mom, and as of the last five years, a proud
         resident of Asheville. Before here I lived in New Jersey, went to Rutgers,
@@ -33,6 +38,19 @@ import LeadForm from '@/components/LeadForm.astro';
         sale, and three small tools that help you figure out where to start.
         Karin Wulff at Nexus Realty is the agent behind it.
       </p>
+        </div>
+      </div>
+      <aside class="lg:pt-16">
+        <Image
+          src={karinPortrait}
+          alt="Karin Wulff, Realtor at Nexus Realty"
+          width={720}
+          height={900}
+          loading="eager"
+          class="rounded-lg shadow-md"
+        />
+        <p class="mt-3 text-xs text-mountain-400">Photo: Carol Spags Photography</p>
+      </aside>
     </div>
 
     <hr class="my-12 border-mountain-100" />
@@ -45,8 +63,13 @@ import LeadForm from '@/components/LeadForm.astro';
       <li><strong>Email:</strong> <a href="mailto:karin@fuzzywolfsales.com">karin@fuzzywolfsales.com</a></li>
     </ul>
 
-    <div class="mt-12">
+  </article>
+
+  <TestimonialsSection background="white" />
+
+  <section class="bg-cream">
+    <div class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
       <LeadForm source="about-bottom" heading="Want to talk?" blurb="Drop a note. I'll come back within a day, and we'll figure out if working together makes sense." />
     </div>
-  </article>
+  </section>
 </BaseLayout>

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LeadForm from '@/components/LeadForm.astro';
 import ListingCard from '@/components/ListingCard.astro';
+import TestimonialsSection from '@/components/TestimonialsSection.astro';
 
 const all = await getCollection('listings', ({ data }) => !data.draft && data.featured);
 const featured = all.sort((a, b) => b.data.list_price - a.data.list_price).slice(0, 3);
@@ -89,13 +90,18 @@ const featured = all.sort((a, b) => b.data.list_price - a.data.list_price).slice
         <li>
           <h3 class="font-display text-xl text-mountain-900">A track record</h3>
           <p class="mt-2 text-mountain-600">
-            Real closings. Real saved-money stories. Reviews from clients on
-            Zillow and Homes.com.
+            16 verified Zillow closings, all five-star reviewed.
+            <a href="https://www.zillow.com/profile/wolfgrl1" target="_blank" rel="noopener" class="underline-offset-2 hover:text-sun-600">Read the reviews →</a>
           </p>
         </li>
       </ul>
     </div>
   </section>
+
+  <TestimonialsSection
+    heading="Five-star reviewed across every closing."
+    background="cream"
+  />
 
   <!-- Featured listings -->
   {featured.length > 0 && (

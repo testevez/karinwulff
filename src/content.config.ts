@@ -80,4 +80,17 @@ const listings = defineCollection({
   }),
 });
 
-export const collections = { listings };
+const testimonials = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/testimonials' }),
+  schema: z.object({
+    reviewer_attribution: z.string(),
+    work_description: z.string(),
+    date: z.coerce.date(),
+    rating: z.number().min(1).max(5),
+    source: z.enum(['zillow', 'homes.com', 'google', 'direct']),
+    source_url: z.string().url(),
+    featured: z.boolean().default(false),
+  }),
+});
+
+export const collections = { listings, testimonials };

@@ -31,6 +31,10 @@ yarn-error.log*
 # Astro build output
 dist/
 
+# Source headshots — large originals; web-ready copies live in src/assets and public
+headshot/
+headshots/
+
 # Terraform (also ignored in infra/.gitignore but belt-and-suspenders)
 **/.terraform/
 **/*.tfstate
