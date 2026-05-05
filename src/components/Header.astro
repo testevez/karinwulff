@@ -5,7 +5,7 @@ const links = [
   { href: '/homes-for-sale/', label: 'Homes' },
   { href: '/buy/', label: 'Buy' },
   { href: '/sell/', label: 'Sell' },
-  { href: '/sold/', label: 'Sold' },
+  { href: '/closed/', label: 'Closed' },
   { href: '/about/', label: 'About' },
   { href: '/contact/', label: 'Contact' },
 ];
@@ -16,7 +16,7 @@ function isActive(href: string) {
 }
 ---
 
-<header class="border-b border-mountain-100 bg-cream">
+<header class="relative border-b border-mountain-100 bg-cream">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
     <a href="/" class="flex items-baseline gap-2 no-underline" aria-label="AVL Curious — home">
       <span class="font-display text-2xl font-medium tracking-tight text-mountain-900">AVL Curious</span>
@@ -25,14 +25,15 @@ function isActive(href: string) {
       </span>
     </a>
 
-    <nav aria-label="Primary">
-      <ul class="flex items-center gap-2 sm:gap-6">
+    {/* Desktop nav — md+ */}
+    <nav class="hidden md:block" aria-label="Primary">
+      <ul class="flex items-center gap-6">
         {links.map(({ href, label }) => (
           <li>
             <a
               href={href}
               class:list={[
-                'rounded px-2 py-1 text-sm no-underline transition-colors sm:text-base',
+                'rounded px-2 py-1 text-base no-underline transition-colors',
                 isActive(href)
                   ? 'text-mountain-900 underline decoration-2 underline-offset-4'
                   : 'text-mountain-600 hover:text-sun-600',
@@ -45,5 +46,87 @@ function isActive(href: string) {
         ))}
       </ul>
     </nav>
+
+    {/* Mobile hamburger */}
+    <button
+      id="avlc-nav-toggle"
+      type="button"
+      class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-mountain-800 hover:bg-mountain-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sun-500"
+      aria-controls="avlc-mobile-nav"
+      aria-expanded="false"
+      aria-label="Open menu"
+    >
+      <svg class="block h-6 w-6 menu-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+      <svg class="hidden h-6 w-6 menu-close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
   </div>
+
+  {/* Mobile nav panel */}
+  <nav
+    id="avlc-mobile-nav"
+    hidden
+    class="md:hidden border-t border-mountain-100 bg-cream"
+    aria-label="Primary mobile"
+  >
+    <ul class="flex flex-col px-2 py-2">
+      {links.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class:list={[
+              'block rounded-md px-4 py-3 text-base no-underline transition-colors',
+              isActive(href)
+                ? 'bg-mountain-100 text-mountain-900 font-medium'
+                : 'text-mountain-700 hover:bg-mountain-100 hover:text-sun-600',
+            ]}
+            aria-current={isActive(href) ? 'page' : undefined}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
 </header>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('avlc-nav-toggle');
+    var panel = document.getElementById('avlc-mobile-nav');
+    if (!btn || !panel) return;
+
+    function setOpen(open) {
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      btn.querySelector('.menu-open').classList.toggle('hidden', open);
+      btn.querySelector('.menu-close').classList.toggle('hidden', !open);
+      if (open) {
+        panel.removeAttribute('hidden');
+      } else {
+        panel.setAttribute('hidden', '');
+      }
+    }
+
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      setOpen(!open);
+    });
+
+    // Close when a link inside the panel is tapped
+    panel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        btn.focus();
+      }
+    });
+  })();
+</script>
