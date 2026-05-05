@@ -1,0 +1,140 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LeadForm from '@/components/LeadForm.astro';
+
+const all = await getCollection('solds');
+// Sort by sold_date desc, fallback for entries with no date
+const sorted = all.sort((a, b) => (b.data.sold_date ?? '').localeCompare(a.data.sold_date ?? ''));
+
+const fmt = new Intl.NumberFormat('en-US');
+const fmtPrice = (n: number) =>
+  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+
+const totalKnown = sorted
+  .map((s) => s.data.sale_price)
+  .filter((p): p is number => typeof p === 'number')
+  .reduce((sum, p) => sum + p, 0);
+
+const knownCount = sorted.filter((s) => s.data.sale_price).length;
+const yearMin = Math.min(
+  ...sorted.map((s) => (s.data.sold_date ? Number(s.data.sold_date.slice(0, 4)) : 9999))
+);
+const yearMax = Math.max(
+  ...sorted.map((s) => (s.data.sold_date ? Number(s.data.sold_date.slice(0, 4)) : 0))
+);
+
+const formatDate = (iso: string | null | undefined) =>
+  iso
+    ? new Date(iso + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    : null;
+---
+
+<BaseLayout
+  title="Sold record — 16 closings"
+  description="Karin Wulff's verified track record: 16 closings, over $8 million in transaction volume, every closing five-star reviewed on Zillow."
+>
+  <article>
+    <!-- Header + stats -->
+    <section class="border-b border-mountain-100">
+      <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+        <p class="text-xs uppercase tracking-widest text-sun-600">Track record</p>
+        <h1 class="mt-3 font-display text-4xl text-mountain-900 sm:text-5xl">
+          {sorted.length} closings. Five-star reviewed across every one.
+        </h1>
+        <p class="mt-4 max-w-2xl text-lg text-mountain-600">
+          Karin closed her first {sorted.length} transactions in the Catskills /
+          Hudson Valley market between {yearMin} and {yearMax}, before relocating to
+          Asheville. The record speaks to her process: calm, thorough, and
+          uncompromising on value. WNC closings are now in progress.
+        </p>
+
+        <dl class="mt-10 grid gap-6 sm:grid-cols-3">
+          <div class="rounded-lg border border-mountain-200 bg-cream p-6">
+            <dt class="text-xs uppercase tracking-widest text-mountain-500">Closings</dt>
+            <dd class="mt-1 font-display text-3xl text-mountain-900">{sorted.length}</dd>
+          </div>
+          <div class="rounded-lg border border-mountain-200 bg-cream p-6">
+            <dt class="text-xs uppercase tracking-widest text-mountain-500">Verified volume</dt>
+            <dd class="mt-1 font-display text-3xl text-mountain-900">
+              {fmtPrice(totalKnown)}<span class="text-sm text-mountain-400">+</span>
+            </dd>
+            <dd class="mt-1 text-xs text-mountain-500">{knownCount} of {sorted.length} prices verified via Zillow</dd>
+          </div>
+          <div class="rounded-lg border border-mountain-200 bg-cream p-6">
+            <dt class="text-xs uppercase tracking-widest text-mountain-500">Average rating</dt>
+            <dd class="mt-1 font-display text-3xl text-mountain-900">5.0 / 5.0</dd>
+            <dd class="mt-1 text-xs text-mountain-500">
+              <a href="https://www.zillow.com/profile/wolfgrl1" target="_blank" rel="noopener" class="underline-offset-2 hover:text-sun-600">All Zillow reviews →</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Sold record table/cards -->
+    <section class="bg-cream">
+      <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+        <h2 class="font-display text-2xl text-mountain-900 sm:text-3xl">Every closing.</h2>
+        <p class="mt-2 max-w-2xl text-mountain-600">
+          Click any address to see the full listing on Zillow.
+        </p>
+
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {sorted.map((s) => {
+            const d = s.data;
+            return (
+              <a
+                href={d.zillow_url}
+                target="_blank"
+                rel="noopener"
+                class="group rounded-lg border border-mountain-200 bg-white p-5 no-underline transition-shadow hover:shadow-md"
+              >
+                <div class="flex items-start justify-between gap-3">
+                  <p class="font-display text-2xl text-mountain-900">
+                    {d.sale_price ? fmtPrice(d.sale_price) : '—'}
+                  </p>
+                  {d.represented && d.represented !== 'unknown' && (
+                    <span class="mt-1 rounded-full bg-mountain-100 px-2 py-0.5 text-[10px] uppercase tracking-wider text-mountain-700">
+                      {d.represented} side
+                    </span>
+                  )}
+                </div>
+                <p class="mt-1 font-medium text-mountain-800 group-hover:text-sun-600">{d.street}</p>
+                <p class="mt-0.5 text-sm text-mountain-600">{d.city}, {d.state} {d.zip}</p>
+
+                <div class="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-mountain-700">
+                  {d.beds != null && <span><strong>{d.beds}</strong> bd</span>}
+                  {d.baths != null && <span><strong>{d.baths}</strong> ba</span>}
+                  {d.sqft != null && <span>{fmt.format(d.sqft)} sqft</span>}
+                  {d.lot_acres != null && <span>{d.lot_acres.toFixed(2)} ac</span>}
+                  {d.year_built != null && <span>built {d.year_built}</span>}
+                </div>
+
+                {d.sold_date && (
+                  <p class="mt-3 text-xs text-mountain-500">Sold {formatDate(d.sold_date)}</p>
+                )}
+              </a>
+            );
+          })}
+        </div>
+
+        <p class="mt-10 text-sm text-mountain-500">
+          Source: <a href="https://www.zillow.com/profile/wolfgrl1" target="_blank" rel="noopener" class="underline-offset-2 hover:text-sun-600">Karin's Zillow profile</a>.
+          Where bedroom/bathroom/square-footage data was unavailable in the public listing, we link directly to the Zillow page.
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section>
+      <div class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+        <LeadForm
+          source="sold-bottom"
+          heading="Want this same level of attention on your transaction?"
+          blurb="Tell me what you're working on. I'll come back within a day."
+        />
+      </div>
+    </section>
+  </article>
+</BaseLayout>

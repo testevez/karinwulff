@@ -35,6 +35,9 @@ dist/
 headshot/
 headshots/
 
+# Source screenshots used only to seed src/data/solds.json
+sold/
+
 # Terraform (also ignored in infra/.gitignore but belt-and-suspenders)
 **/.terraform/
 **/*.tfstate

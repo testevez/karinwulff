@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { glob, file } from 'astro/loaders';
 
 const listings = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/listings' }),
@@ -93,4 +93,29 @@ const testimonials = defineCollection({
   }),
 });
 
-export const collections = { listings, testimonials };
+const solds = defineCollection({
+  loader: file('src/data/solds.json', {
+    parser: (text) => JSON.parse(text).map((entry: any) => ({ id: entry.zpid, ...entry })),
+  }),
+  schema: z.object({
+    zpid: z.string(),
+    street: z.string(),
+    city: z.string(),
+    state: z.string(),
+    zip: z.string(),
+    zillow_url: z.string().url(),
+    sold_date: z.string().nullable().optional(),
+    sale_price: z.number().nullable().optional(),
+    represented: z.enum(['buyer', 'seller', 'unknown']).optional().default('unknown'),
+    beds: z.number().nullable().optional(),
+    baths: z.number().nullable().optional(),
+    sqft: z.number().nullable().optional(),
+    year_built: z.number().nullable().optional(),
+    lot_acres: z.number().nullable().optional(),
+    hero_image: z.string().nullable().optional(),
+    lat: z.number().nullable().optional(),
+    lng: z.number().nullable().optional(),
+  }),
+});
+
+export const collections = { listings, testimonials, solds };
