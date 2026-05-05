@@ -102,7 +102,11 @@
     "year_built": 2005,
     "lot_acres": 0.35,
     "sold_date": "2023-03-22",
-    "sale_price": 749000
+    "sale_price": 749000,
+    "beds": 3,
+    "baths": 3,
+    "sqft": 2170,
+    "represented": "buyer"
   },
   {
     "zpid": "32837442",
@@ -113,7 +117,11 @@
     "zillow_url": "https://www.zillow.com/homedetails/57-Henry-St-Kingston-NY-12401/32837442_zpid/",
     "year_built": 1900,
     "sold_date": "2023-02-16",
-    "sale_price": 275000
+    "sale_price": 275000,
+    "beds": 3,
+    "baths": 2,
+    "sqft": 1520,
+    "lot_acres": 0.14
   },
   {
     "zpid": "30504632",
@@ -125,7 +133,10 @@
     "year_built": 1993,
     "lot_acres": 6.3,
     "sold_date": "2022-08-13",
-    "sale_price": 925000
+    "sale_price": 925000,
+    "beds": 5,
+    "baths": 3,
+    "sqft": 3700
   },
   {
     "zpid": "32884903",
@@ -137,7 +148,10 @@
     "year_built": 1870,
     "lot_acres": 0.88,
     "sold_date": "2022-07-27",
-    "sale_price": 575000
+    "sale_price": 575000,
+    "beds": 3,
+    "baths": 2,
+    "sqft": 1785
   },
   {
     "zpid": "2078717993",
@@ -148,7 +162,11 @@
     "zillow_url": "https://www.zillow.com/homedetails/71-3-County-Route-65-Windham-NY-12496/2078717993_zpid/",
     "year_built": 2020,
     "sold_date": "2022-04-07",
-    "sale_price": 275000
+    "sale_price": 275000,
+    "beds": 2,
+    "baths": 2,
+    "sqft": 1290,
+    "lot_acres": 0.014
   },
   {
     "zpid": "32850244",
@@ -158,7 +176,12 @@
     "zip": "12404",
     "zillow_url": "https://www.zillow.com/homedetails/385-County-Route-2-Accord-NY-12404/32850244_zpid/",
     "sold_date": "2022-03-22",
-    "sale_price": 326000
+    "sale_price": 326000,
+    "beds": 2,
+    "baths": 1,
+    "sqft": 900,
+    "year_built": 1860,
+    "lot_acres": 3.0
   },
   {
     "zpid": "32864162",
@@ -170,7 +193,10 @@
     "year_built": 1988,
     "lot_acres": 2.82,
     "sold_date": "2022-02-15",
-    "sale_price": 360000
+    "sale_price": 360000,
+    "beds": 3,
+    "baths": 2,
+    "sqft": 1824
   },
   {
     "zpid": "32838192",
@@ -196,7 +222,11 @@
     "zillow_url": "https://www.zillow.com/homedetails/23-S-Washington-Ave-Kingston-NY-12401/32834761_zpid/",
     "year_built": 1950,
     "sold_date": "2021-08-19",
-    "sale_price": 200000
+    "sale_price": 200000,
+    "beds": 3,
+    "baths": 1,
+    "sqft": 1057,
+    "lot_acres": 0.2
   },
   {
     "zpid": "32835216",
@@ -208,7 +238,10 @@
     "year_built": 1955,
     "lot_acres": 0.89,
     "sold_date": "2021-07-06",
-    "sale_price": 530000
+    "sale_price": 530000,
+    "beds": 2,
+    "baths": 2,
+    "sqft": 1731
   },
   {
     "zpid": "32861136",
