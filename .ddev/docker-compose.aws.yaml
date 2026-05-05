@@ -1,0 +1,8 @@
+# Mount the host's AWS config + SSO cache into the web container so the
+# `avlcurious` SSO profile works inside DDEV without re-logging-in.
+# We mirror the host path inside the container so the AWS CLI's default
+# `~/.aws` lookup resolves correctly.
+services:
+  web:
+    volumes:
+      - "${HOME}/.aws:/home/${USER}/.aws:ro,cached"

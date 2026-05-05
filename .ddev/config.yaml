@@ -1,0 +1,17 @@
+name: avlcurious
+type: generic
+docroot: dist
+webserver_type: generic
+nodejs_version: "22"
+web_environment:
+  - AWS_PROFILE=avlcurious
+  - AWS_SDK_LOAD_CONFIG=1
+omit_containers:
+  - db
+web_extra_exposed_ports:
+  - name: astro-dev
+    container_port: 4321
+    http_port: 4321
+    https_port: 4322
+disable_settings_management: true
+performance_mode: mutagen
