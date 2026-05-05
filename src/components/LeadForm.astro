@@ -67,7 +67,7 @@ const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? 'PLACEHOLDER_ACCESS_
     <fieldset class="space-y-2">
       <legend class="text-sm font-medium text-mountain-800">What are you up to?</legend>
       <div class="grid gap-1 sm:grid-cols-2">
-        {['Buying', 'Selling', 'Relocating to WNC', 'Just exploring'].map((label) => (
+        {['Buying', 'Selling', 'Both — buy + sell', 'Just exploring'].map((label) => (
           <label class="flex items-center gap-2 text-sm">
             <input type="radio" name="intent" value={label} required class="h-4 w-4 accent-sun-500" />
             <span>{label}</span>

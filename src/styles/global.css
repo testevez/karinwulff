@@ -45,12 +45,14 @@ h1, h2, h3, h4 {
   text-wrap: balance;
 }
 
-a {
+/* :where() keeps specificity at 0 so Tailwind utility colors (text-cream,
+   text-mountain-100, etc.) on buttons and footer links win without !important. */
+:where(a) {
   color: var(--color-mountain-800);
   text-underline-offset: 0.18em;
 }
 
-a:hover {
+:where(a:hover) {
   color: var(--color-sun-600);
 }
 

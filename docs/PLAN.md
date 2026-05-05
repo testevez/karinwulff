@@ -16,7 +16,7 @@ We are building a **content-led real estate discovery site** under the **AVL Cur
 - **Karin as the agent of record:** prominent on `/about/`, in the footer (NCREC-required: name + license # + Nexus Realty firm name), in the brand-pillar surfaces, and in lead-form follow-up. The site is hers; the brand is the entry point.
 - Listings: **Build-time MLS feed → static listing pages** (highest SEO upside).
 - Leads: **Email only via 3rd-party form endpoint** (no CRM yet).
-- Audience tilt: **Luxury-leaning, relocation-friendly** — same funnel, luxury-priced hero.
+- Audience tilt: **Luxury-leaning, out-of-area-buyer-friendly** — same funnel, luxury-priced hero. **Relocation is not a packaged service offering** (decided 2026-05-05) — no `/relocate/` hub, no "Relocate" nav, no "Relocating to WNC" intent in the lead form. Out-of-area buyers are served by the same content (neighborhoods, market data, schools research, BRP living, etc.) without being labeled "relocators."
 
 ## Brand pillars — what every page must convey
 
