@@ -64,6 +64,97 @@ These six attributes are the differentiators that convert higher-end buyers. The
 
 **Estimated monthly cost:** ~$15–25/mo (S3 + CloudFront + Route 53 + form service + domain amortized). MLS feed cost depends on Canopy/Nexus arrangement; most agent IDX feeds are included with brokerage membership.
 
+## Compliance & legal — non-negotiable constraints
+
+This is a real estate marketing site. It sits inside seven overlapping regulatory regimes: (1) the federal **Fair Housing Act**, (2) **NCREC** rules at 21 NCAC 58A, (3) the **NAR Code of Ethics**, (4) **Canopy MLS** IDX rules, (5) **ADA / WCAG**, (6) **CAN-SPAM / TCPA**, and (7) state privacy law (NC + CCPA/CPRA for CA visitors). Karin's **broker-in-charge** at Nexus has supervisory liability — **all final copy must be reviewed and approved by the broker-in-charge before launch**, and ambiguous Fair Housing language goes to NC REALTORS Legal Hotline or counsel. The plan author is not a lawyer; this section identifies the rules but does not constitute legal advice.
+
+### 1. Fair Housing Act — what we cannot say about neighborhoods
+
+Protected classes: race, color, national origin, religion, sex, familial status, disability (plus state-additional). The doctrine of **steering** prohibits agents from directing buyers toward or away from areas based on these traits, including via website copy.
+
+| Banned in copy | Allowed in copy |
+|---|---|
+| "Good/best/bad schools" — even with caveats | Link to NCDPI report cards, GreatSchools, district websites, school zone maps; let buyers research |
+| "Safe," "low-crime," "up-and-coming" | Crime statistics from objective sources, with attribution and a "verify yourself" note |
+| "Family-friendly," "great for kids," "perfect for retirees" | "Within X miles of [named park/playground/trail]"; lot size; school bus route data |
+| "Quiet" / "lively" framed against another area | Density, traffic counts, named amenities, sound-impact data if relevant |
+| Any racial / ethnic / religious / national-origin / disability composition descriptor | Demographic data only via links to Census/data.gov, with no editorial framing |
+| Subjective vibe labels that map to stereotypes ("artsy," "refined," "blue-collar") | Concrete amenities: galleries, breweries, farms, golf courses, named by name |
+
+**Practical impact across the plan:**
+- **Neighborhood pages** must be rebuilt around objective, factual amenity descriptions plus links to third-party data sources. No editorialized "vibe." Karin's first-person voice still works for *amenities and her own experiences* — "I bike Beaverdam Road every Saturday morning" is fine; "Beaverdam attracts the active outdoor type" is steering.
+- **WNC quiz** archetype framing (originally "weird and arty / refined and quiet / small-town porches / off-grid mountain") must be **replaced with objective preference axes** — see the rewritten quiz section below.
+- **Blog topics** with steering risk are removed or recast — see the revised list in Site structure.
+- **MLS-supplied listing copy** is generally required to be reproduced verbatim under IDX rules; we do not author our own listing descriptions for IDX listings. For Karin's *own* listings (where she's the listing agent), copy must avoid steering language.
+
+### 2. NCREC advertising rules (21 NCAC 58A .0105)
+
+Required on every page (in the footer at minimum):
+- **Firm name: "Nexus Realty"** — prominence equal to or greater than Karin's name.
+- Karin's full name + **NC license number** + license type ("Broker" — NC uses "Broker" for licensees).
+- "REALTOR®" mark only if Karin is a NAR member (verify before adding).
+- The Equal Housing Opportunity statement and HUD logo.
+
+### 3. NC "Working With Real Estate Agents" (WWREA) disclosure
+
+NCREC requires this disclosure at first substantial contact with a prospective client. A web form submission is generally not first substantial contact, but lead-form pages should include a short notice: *"When we connect, I'll share the NC Working With Real Estate Agents disclosure — it explains how agents represent buyers and sellers in North Carolina."* Link to the WWREA PDF on the NCREC site.
+
+### 4. Canopy MLS IDX compliance
+
+Beyond what's in the MLS Integration section:
+- IDX Participant (Karin's broker) branding **must be at least as prominent** as the site brand on IDX pages.
+- Each listing detail page must include: listing-broker attribution ("Listing courtesy of [broker]"), listing-broker phone or email, and the Canopy-supplied data attribution + copyright + disclaimer.
+- Verify Canopy's current refresh-frequency rule against our nightly cadence; some MLSes require shorter intervals.
+- Photos display under IDX license — disable right-click download on listing detail pages; do not redistribute.
+- Honor opt-in/opt-out flags on each listing record.
+
+### 5. Privacy, CAN-SPAM, TCPA
+
+- **`/privacy/` page** covering: data collected (name/email/phone/form data, GA4 cookies, IP); purposes (lead follow-up, analytics); third-party processors (Web3Forms or Formspree, Google Analytics, Search Console, AWS); retention; user rights; contact for requests. Templates from Termly or Iubenda are acceptable starting points.
+- **Cookie consent banner** for GA4 — lightweight, static-friendly (Klaro is one option). Block analytics until consent.
+- **TCPA** — lead form includes explicit opt-in language: *"By submitting, I agree Karin Wulff may contact me by phone, email, or text at the contact info provided."* Required next to the submit button or as a checked-by-default consent line.
+- **CAN-SPAM** — any marketing emails Karin sends from the site's lead pipeline must include the Nexus office physical address and a working unsubscribe link.
+
+### 6. ADA / WCAG 2.1 AA
+
+Real estate sites are a serial-plaintiff target. Build to **WCAG 2.1 AA** from day one (cheaper than retrofitting).
+- Keyboard navigation throughout; visible focus indicators.
+- Color contrast ≥ 4.5:1 (3:1 for large text).
+- Alt text on every meaningful image; empty alt only for decorative.
+- Proper form label association; clear error messaging.
+- Skip-to-content link; semantic heading order.
+- ARIA only where native HTML semantics fall short.
+- Pre-launch QA: axe DevTools, Lighthouse accessibility, keyboard-only walkthrough, one screen-reader pass (VoiceOver or NVDA).
+- Publish an `/accessibility/` statement describing conformance target and a contact for reports.
+
+### 7. Required footer content (every page)
+
+- Firm name: **Nexus Realty** + Arden, NC office address + main office phone.
+- Karin's name + NC license # + "Broker" + "REALTOR®" (if applicable).
+- HUD **Equal Housing Opportunity** logo + statement.
+- Canopy MLS attribution + logo on any page displaying IDX data.
+- Links: Privacy Policy, Accessibility Statement.
+- Copyright line.
+
+### 8. Photography & copyright
+
+- MLS listing photos: display under IDX license only; no redistribution; right-click download disabled on listing detail pages.
+- Karin's commissioned photography: photographer contracts must assign copyright to Karin or Nexus, with explicit web/marketing rights in writing.
+
+### 9. Pre-launch compliance checklist (gate to launch)
+
+- [ ] All site copy reviewed and approved by Nexus broker-in-charge.
+- [ ] Any ambiguous Fair Housing language run by NC REALTORS Legal Hotline.
+- [ ] NCREC footer requirements verified on every page.
+- [ ] EHO logo + statement in footer.
+- [ ] WWREA notice on lead form pages; PDF link working.
+- [ ] Canopy IDX attribution + listing-broker info on every listing page.
+- [ ] `/privacy/` and `/accessibility/` pages live.
+- [ ] Cookie consent banner active and blocking GA4 until accepted.
+- [ ] TCPA opt-in language present on every form.
+- [ ] Lighthouse accessibility ≥ 95 site-wide; manual screen-reader pass complete.
+- [ ] Right-click disabled on listing photos.
+
 ## Site structure (URL inventory)
 
 ```
@@ -127,36 +218,41 @@ These six attributes are the differentiators that convert higher-end buyers. The
 /seller-readiness/                      "Is your house ready to sell?" calculator (see below)
 /seller-readiness/result/[band]/        Score bands: list-ready, prep-needed, strategic-phase
 
-# Content hub
+# Content hub — all titles audited for Fair Housing safety (no "best schools," no demographic framing)
 /guides/                                Index
-/guides/asheville-schools/              Public, charter, magnet
-/guides/asheville-private-schools/      Montessori, Carolina Day, Asheville Christian, Hanger Hall
-/guides/cost-of-living-asheville/
-/guides/asheville-property-taxes/
-/guides/buying-a-second-home-asheville/
-/guides/luxury-home-features-mountain-homes/
-/guides/asheville-vs-greenville-vs-charlotte/
-/guides/blue-ridge-parkway-living/      Living near the BRP — best access points, what it's like
-/guides/biking-in-asheville/            North AVL routes, Bent Creek, mountain biking, road biking
-/guides/hiking-near-asheville/          Trail-adjacent neighborhoods, DuPont, Pisgah, MST
-/guides/paddleboarding-and-water/       French Broad, Lake Lure, Lake Julian
-/guides/asheville-breweries-by-neighborhood/  SEO-rich + voice
-/guides/downtown-asheville-events/      Orange Peel, Grey Eagle, Downtown After 5, LEAF, Bele Chere legacy
-/guides/asheville-cocktail-bars/        Sovereign Remedies, The Crow & Quill, Antidote, etc.
+/guides/asheville-school-research/      How to research Asheville-area schools — links to NCDPI, GreatSchools,
+                                        district maps; objective info only, no editorial rankings
+/guides/asheville-private-schools-directory/  Listing of private schools (Carolina Day, Asheville Christian,
+                                              Hanger Hall, Montessori options) with links to each school's
+                                              own materials. Directory format, no comparative judgments.
+/guides/cost-of-living-asheville/       Data-driven (BLS, ACS, BEA), with sources cited
+/guides/asheville-property-taxes/       Buncombe + Henderson tax rates, exemptions
+/guides/buying-a-second-home-asheville/ Tax/financing/insurance considerations
+/guides/luxury-home-features-mountain-homes/  Architecture & build features
+/guides/asheville-vs-greenville-vs-charlotte/  Objective side-by-side: distance, population, median home
+                                                price, market trends — no quality-of-life rankings
+/guides/blue-ridge-parkway-living/      Access points, BRP regulations, what's nearby
+/guides/biking-in-asheville/            Routes by area: Bent Creek, MTB trails, road-biking loops
+/guides/hiking-near-asheville/          DuPont, Pisgah, MST trail access
+/guides/paddleboarding-and-water/       French Broad, Lake Lure, Lake Julian access points
+/guides/asheville-breweries-by-neighborhood/  Brewery directory by area
+/guides/downtown-asheville-events/      Orange Peel, Grey Eagle, Downtown After 5, LEAF — venue facts
+/guides/asheville-cocktail-bars/        Sovereign Remedies, The Crow & Quill, Antidote — venue directory
 
-# Blog (cadence: 2-4/mo) — sample evergreen + seasonal topics
+# Blog (cadence: 2-4/mo) — Fair-Housing-safe titles only
 /blog/
-/blog/best-public-schools-buncombe-county/
-/blog/montessori-schools-asheville-guide/
-/blog/downtown-after-5-2026/             Annually refreshed
-/blog/orange-peel-vs-grey-eagle/         Venue guide — playful, voice-forward
-/blog/best-cocktail-bars-asheville/
-/blog/north-asheville-biking-guide/
-/blog/where-locals-actually-paddle/
-/blog/why-weaverville-is-having-a-moment/
-/blog/black-mountain-vs-asheville-which-is-right-for-you/
-/blog/living-near-blue-ridge-parkway-pros-cons/
-/blog/asheville-fall-color-neighborhoods/   Seasonal traffic spike
+/blog/buncombe-county-school-research-guide/    "How to research" framing, no rankings
+/blog/montessori-schools-asheville-directory/   Directory + links, no comparative claims
+/blog/downtown-after-5-2026/                    Event guide, annually refreshed
+/blog/orange-peel-grey-eagle-music-venues/      Venue facts, not personality typing
+/blog/asheville-cocktail-bar-directory/
+/blog/north-asheville-biking-routes/
+/blog/where-to-paddle-near-asheville/
+/blog/weaverville-market-snapshot-2026/         Data-driven; not "having a moment"
+/blog/black-mountain-asheville-objective-comparison/  Side-by-side facts; not "which is right for you"
+/blog/blue-ridge-parkway-access-by-area/        Distance/access facts
+/blog/asheville-fall-color-driving-routes/      Seasonal, lifestyle (not neighborhood ranking)
+/blog/wnc-quarterly-market-report-q1-2026/      Quarterly cadence
 
 # Social proof / market authority
 /market-reports/                       Quarterly Asheville/WNC reports
@@ -263,30 +359,34 @@ S3 bucket (private, accessed via OAC) — static site assets
 - Security headers via CloudFront response-headers policy: HSTS, CSP (allow GA4 + form endpoint), X-Content-Type-Options, Referrer-Policy.
 - Provision via Terraform or AWS CDK in `infra/` (Terraform recommended — simpler for this scope).
 
-## "Where Should You Live in WNC?" — gamified neighborhood quiz
+## "Where Should You Live in WNC?" — neighborhood-match quiz (Fair-Housing-safe)
 
-This is a tentpole feature: a playful, fully client-side quiz that recommends 2–3 WNC areas based on lifestyle answers. It does triple duty — top-of-funnel SEO hook, social-share magnet (Asheville culture loves quirky internet things), and a high-quality lead capture surface.
+A playful, fully client-side quiz that recommends 2–3 WNC areas based on **objective preference axes** — not lifestyle archetypes or vibe labels. Triple duty: top-of-funnel SEO, share magnet, lead-capture surface. The voice can still be playful (this is Asheville); the *scoring* must be amenity-and-fact-based to stay clear of Fair Housing steering.
 
-**Mechanics (pure JS, runs on the static page — no backend):**
-- 8–10 questions, multiple choice, swipe-card UX. Each answer scores against a matrix of neighborhood archetypes.
-- Question themes:
-  - **Vibe:** "Weird and arty" (RAD, West AVL) vs. "Refined and quiet" (Biltmore Forest, Grove Park) vs. "Small-town porches" (Black Mountain, Weaverville) vs. "Off-grid mountain" (Fairview, Leicester).
-  - **Walk to a brewery:** essential / nice-to-have / I'll drive / I make my own kombucha.
-  - **Outdoor priority:** mountain biking trailhead (Bent Creek, North AVL), hiking (DuPont/Pisgah), paddleboarding (French Broad / Lake Lure), Blue Ridge Parkway access, golf (Walnut Cove / Biltmore Forest CC), or "wraparound porch with a view is enough."
-  - **Downtown frequency:** every weekend (Montford, Kenilworth, RAD-adjacent) / monthly date night (South AVL) / a few times a year (Black Mountain, Brevard, Lake Lure).
-  - **School needs:** public (Buncombe vs. Asheville City vs. Henderson), private/Montessori, none.
-  - **Budget tier** — same as the lead form, double-purposes as the quality gate.
+> **Compliance principle:** the quiz recommends neighborhoods based on what a buyer says they want in a *house and location* (lot size, distance, named amenities, price), never on inferred demographic, family, religious, or socio-cultural traits. Result pages describe each neighborhood with the same objective vocabulary used on the neighborhood pages themselves.
+
+**Mechanics (pure JS, static page, no backend):**
+- 8–10 questions, multiple choice. Each answer scores against a matrix of neighborhoods on **objective attributes only**.
+- Question themes (rewritten to remove subjective vibe framing):
+  - **Lot & density preference:** walkable urban (small lot, sidewalks) / suburban (1/4–1 acre) / large-lot (1–5 acres) / acreage (5+).
+  - **Commute / distance to downtown Asheville:** 0–5 mi / 5–15 mi / 15–30 mi / 30+ mi.
+  - **Outdoor recreation proximity (multi-select named amenities):** mountain biking trailhead (Bent Creek, DuPont, Kitsuma) / hiking (Pisgah, MST, BRP overlooks) / paddling (French Broad, Lake Lure, Lake Julian) / golf (Walnut Cove, Biltmore Forest CC, Grove Park) / Blue Ridge Parkway entry within 10 minutes.
+  - **Walk-to amenities priority:** none required / ≥1 brewery within 1 mi / ≥1 grocery within 1 mi / ≥1 cafe + restaurant cluster within 1 mi.
+  - **Downtown Asheville access frequency:** weekly+ / monthly / occasional / rarely.
+  - **Architectural character preference:** historic / cottage / modern / mountain contemporary / estate / no preference. (Building features, not demographic descriptors.)
+  - **Public-school research interest:** "Yes, I want to research school districts" → result page links to NCDPI report cards, GreatSchools, and district zone maps; **no editorial scoring on school quality**. "No / not applicable" is a valid answer with no scoring penalty.
+  - **Price tier** — same options as the lead form; doubles as the quality gate.
   - **Timeline + intent.**
-  - **Optional:** "What's your spirit Asheville thing?" — kombucha / bluegrass jam / hot yoga / Friday at Highland / second-line at the Grey Eagle / drum circle at Pritchard Park. Pure tone-setter, light scoring.
-- Each result is a **shareable, indexable** page at `/where-should-you-live/result/[slug]/` (e.g. `/result/north-asheville-bike-loving-foodie/`). Pre-generated combinations of top archetypes → static HTML, great for SEO and shareability.
-- Result page shows: 2 primary recommendations + 1 "wildcard" pick, each linking to its neighborhood page, with a personalized "why" paragraph and a tour-request CTA pre-filled with the recommendations.
-- **Lead capture:** result is shown immediately (no email-wall — that kills shares). Below the result, a *soft* form: "Want Karin to put together a list of actual homes in [recommended areas]? Drop your email and budget." Pre-fills the budget tier from the quiz answers.
-- **Voice:** lean into the weird. Loading state line: "Consulting the bluegrass oracle…" Question copy: "Pick your Saturday: trail by 8am / brunch at 11 / both, somehow." This is a place where the brand voice gets to breathe.
+- Each result is a **shareable, indexable** page at `/where-should-you-live/result/[slug]/`, pre-generated for the top combinations of *objective preference clusters* (e.g. `/result/large-lot-trail-adjacent-15-30-mi/`). The slug describes attributes, not stereotypes.
+- Result page shows: 2 primary recommendations + 1 "wildcard" pick, each linking to its neighborhood page, with a *factual* "why this matches" paragraph (e.g. "You said you want ≥1 acre and a 10-minute drive to a mountain-biking trailhead. Fairview has a median lot of 1.2 acres and is 12 minutes from Bent Creek.").
+- **Lead capture:** result shown immediately (no email-wall — kills shares). Soft form below: *"Want Karin to put together a curated list of homes matching your criteria? Drop your email and budget."* Pre-fills budget from the quiz.
+- **Voice:** still playful. The voice lives in the *question copy and loading states* ("Consulting the topo map…", "Pick your Saturday: trail by 8am / brunch at 11 / both, somehow"), **never** in the recommendation rationale, which stays factual.
 
 **Tech notes:**
-- Astro page with a small client-island (~10–15kb of JS, code-split). State in URL params so back-button and shares work.
-- All scoring logic in a single TS module; quiz config in JSON for easy tuning.
-- No analytics on individual answers (privacy + simplicity); just track quiz starts, completions, and result→lead-form conversions in GA4.
+- Astro page with a small client-island (~10–15kb JS, code-split). State in URL params so back-button and shares work.
+- Scoring logic in a single TS module; question + neighborhood-attribute matrix in JSON for easy tuning and broker review.
+- No tracking of individual answers (privacy). Just quiz starts, completions, and result→lead conversions in GA4.
+- **Broker review required** of the question wording, the neighborhood attribute matrix, and at least a sample of the pre-generated result pages before launch.
 
 ## Buyer Readiness & Seller Readiness calculators
 
@@ -369,7 +469,15 @@ The three interactive tools (`/where-should-you-live/`, `/buyer-readiness/`, `/s
 - Quarterly market reports — separate sub-reports for Asheville core, Black Mountain/Weaverville corridor, and Hendersonville/Brevard.
 - Listings auto-refresh nightly.
 
-**Voice:** warm, specific, locally-informed, and *unafraid of Asheville's weirdness*. The town's identity is art, beer, bluegrass, drum circles at Pritchard Park, food co-ops, and people who moved here for the mountains and stayed for the community. Lean into it — sterile real estate copy will lose to a competitor who sounds like a neighbor. Karin's voice from the prototype works (`"I'll tell you where to find the best guac"`). Keep first-person Karin throughout — never "we." Reference real venues by name (Orange Peel, Grey Eagle, Sovereign Remedies, Highland Brewing, Wedge at Foundation, the LEAF Festival, Downtown After 5, Bele Chere's ghost). Reference real outdoor places (Bent Creek, DuPont, Pisgah, Mountains-to-Sea Trail, the French Broad, Looking Glass Falls). Anchor the About page in Karin's real story (NJ roots, Rutgers, NY/Catskills real estate, 5 years in Asheville with Tony and Siena).
+**Voice:** warm, specific, locally-informed, and unafraid of Asheville's quirky spirit — but **disciplined about Fair Housing**. The voice lives in *Karin's first-person experiences* and *named amenities*, not in characterizations of who lives somewhere. Reference real venues and amenities by name — Orange Peel, Grey Eagle, Sovereign Remedies, Highland Brewing, Wedge at Foundation, LEAF Festival, Downtown After 5, Bent Creek, DuPont, Pisgah, Mountains-to-Sea Trail, the French Broad, Looking Glass Falls, Chimney Rock. Karin's voice from the prototype works (`"I'll tell you where to find the best guac"` — that's about a *thing she knows*, not about who lives in a neighborhood). Keep first-person Karin throughout — never "we."
+
+**Voice red lines (Fair Housing):**
+- Don't characterize *people* who live in any area: no "the Biltmore Forest set," "West AVL is full of artists," "Black Mountain folks," etc.
+- Don't grade schools, school districts, or compare them. Provide links to NCDPI and GreatSchools and let buyers research.
+- Don't use "family-friendly," "great for kids," "perfect for retirees," "low-crime," "safe," "quiet," "up-and-coming."
+- Subjective takes are fine when they're about *Karin's own experiences with named amenities* ("I bike Beaverdam Road every Saturday — it's the climb that hooks people"), but not about *the type of person a place suits*.
+
+Anchor the About page in Karin's real story (NJ roots, Rutgers, NY/Catskills real estate, 5 years in Asheville with Tony and Siena).
 
 **What we still need from Karin:**
 - Headshots (high-res, multiple).
@@ -386,8 +494,9 @@ The three interactive tools (`/where-should-you-live/`, `/buyer-readiness/`, `/s
 | **1. Core pages** | Homepage, About, Buy, Sell, Contact, Relocate hub; lead form (all surfaces); Web3Forms wired; analytics installed | Weeks 2–3 |
 | **2. Neighborhoods + guides + tools** | 10 cornerstone area pages (incl. Black Mountain, Weaverville, Hendersonville); 5 cornerstone guides; all three interactive tools (Where Should You Live, Buyer Readiness, Seller Readiness) with shareable static result pages; `/tools/` index; internal linking finalized | Weeks 4–5 |
 | **3. MLS integration** | Trestle API connector; nightly cron; listing index; listing detail template; featured listings on homepage | Weeks 6–7 |
-| **4. Polish & launch** | Schema audit; Lighthouse pass; GSC submission; Google Business Profile sync; redirects from Nexus profile/Zillow profile pointing here | Week 8 |
-| **5. Content engine** | Editorial cadence: market reports, blog posts, neighborhood expansion, sold listings | Ongoing |
+| **4. Compliance & accessibility gate** | Broker-in-charge copy review; Fair Housing audit of every neighborhood page, blog post, and quiz result; NCREC footer verified; EHO + WWREA + Canopy IDX attribution + Privacy/Accessibility pages live; WCAG 2.1 AA + screen-reader pass; cookie consent + TCPA opt-in active. **Launch is gated on this checklist passing.** | Week 7.5 |
+| **5. Polish & launch** | Schema audit; Lighthouse pass; GSC submission; Google Business Profile sync; redirects from Nexus profile/Zillow profile pointing here | Week 8 |
+| **6. Content engine** | Editorial cadence: market reports, blog posts, neighborhood expansion, sold listings. Every piece passes the Fair Housing audit before publish. | Ongoing |
 
 ## Critical files (to be created)
 
@@ -417,7 +526,10 @@ The three interactive tools (`/where-should-you-live/`, `/buyer-readiness/`, `/s
 ## Open items requiring user input before/during build
 
 1. Confirm domain (default plan assumes `karinwulff.com`).
-2. Karin requests Canopy MLS IDX feed credentials via Nexus broker — start this now; it can take 1–4 weeks.
+2. Karin requests Canopy MLS IDX feed credentials via Nexus broker — start this now; it can take 1–4 weeks. While at it, request the current Canopy IDX rules document and the required attribution boilerplate.
 3. Karin sends headshots + a 30-min recorded interview for the About page.
 4. AWS account access for Antonio (assumed available; confirm region preference — `us-east-1` recommended for CloudFront/ACM simplicity).
 5. Decide on Web3Forms vs Formspree (Web3Forms free tier may be sufficient initially).
+6. **Confirm Karin's NC license number, NAR membership status, and broker-in-charge contact** — needed for footer compliance and pre-launch review.
+7. **Identify the broker-in-charge as the formal copy reviewer** — schedule a single review pass for all launch copy in week 7.
+8. Confirm whether Karin will use NC REALTORS Legal Hotline (free for members) or external counsel for any Fair Housing language flags.
