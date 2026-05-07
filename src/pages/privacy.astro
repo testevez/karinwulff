@@ -21,8 +21,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
     <h2>Third-party processors</h2>
     <ul>
-      <li>Form submissions are processed by our form-handling provider (Web3Forms or Formspree).</li>
+      <li>Form submissions are processed by our form-handling provider (Web3Forms).</li>
       <li>Analytics by Google Analytics 4.</li>
+      <li>Spam / bot protection on contact forms by <strong>Google reCAPTCHA v3</strong>. reCAPTCHA loads on every page to score behavior; submission is blocked if the score indicates automated activity. Use of reCAPTCHA is governed by the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Google Terms of Service</a>.</li>
       <li>Hosting on Amazon Web Services (S3 + CloudFront).</li>
     </ul>
 
