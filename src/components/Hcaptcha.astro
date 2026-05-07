@@ -1,18 +1,18 @@
 ---
-// Google reCAPTCHA v3 — invisible scoring captcha.
-// Loads sitewide (per Google's recommendation, so the model can score
-// behavior across the whole session). The token is then fetched per form
-// submission inside LeadForm.astro and posted to Web3Forms, which
-// validates it server-side using the matching SECRET key in the Web3Forms
-// dashboard.
+// hCaptcha — privacy-friendly anti-bot CAPTCHA, natively supported by
+// Web3Forms's free tier.
 //
-// If PUBLIC_RECAPTCHA_SITE_KEY is empty, no script loads and forms
-// submit without a token (Web3Forms simply skips reCAPTCHA validation
-// when none is configured).
+// The site key is public (embedded in the HTML); the SECRET key lives
+// in the Web3Forms dashboard under Form Settings, where Web3Forms
+// validates the h-captcha-response token server-side on each submit.
+//
+// If PUBLIC_HCAPTCHA_SITE_KEY is empty the script doesn't load and
+// LeadForm.astro renders without the widget — submissions still go
+// through (Web3Forms only enforces CAPTCHA when configured).
 
-const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+const siteKey = import.meta.env.PUBLIC_HCAPTCHA_SITE_KEY;
 ---
 
 {siteKey && (
-  <script is:inline async defer src={`https://www.google.com/recaptcha/api.js?render=${siteKey}`}></script>
+  <script is:inline async defer src="https://js.hcaptcha.com/1/api.js"></script>
 )}
