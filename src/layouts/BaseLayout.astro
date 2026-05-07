@@ -5,7 +5,7 @@ import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import Analytics from '@/components/Analytics.astro';
 import ConsentBanner from '@/components/ConsentBanner.astro';
-import Recaptcha from '@/components/Recaptcha.astro';
+import Hcaptcha from '@/components/Hcaptcha.astro';
 
 interface Props {
   title: string;
@@ -27,7 +27,7 @@ const analyticsActive = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <SEO title={title} description={description} image={image} noindex={noindex} />
     <Analytics />
-    <Recaptcha />
+    <Hcaptcha />
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#main" class="skip-link">Skip to content</a>

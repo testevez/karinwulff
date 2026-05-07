@@ -20,7 +20,7 @@ const {
 const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://api.web3forms.com/submit';
 const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? 'PLACEHOLDER_ACCESS_KEY';
 const bccEmail = import.meta.env.PUBLIC_FORM_BCC ?? 'tootast@gmail.com';
-const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? '';
+const hcaptchaSiteKey = import.meta.env.PUBLIC_HCAPTCHA_SITE_KEY ?? '';
 ---
 
 <section
@@ -40,15 +40,12 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? '';
     action={formEndpoint}
     class="mt-6 space-y-5"
     data-leadform-source={source}
-    data-recaptcha-site-key={recaptchaSiteKey || undefined}
   >
     <!-- Web3Forms wiring -->
     <input type="hidden" name="access_key" value={accessKey} />
     <input type="hidden" name="subject" value={`[avlcurious.com] New lead — ${source}`} />
     <input type="hidden" name="from_name" value="AVL Curious lead form" />
     <input type="hidden" name="bcc" value={bccEmail} />
-    <!-- reCAPTCHA v3 token, populated on submit -->
-    <input type="hidden" name="g-recaptcha-response" value="" />
     <!-- Tracking -->
     <input type="hidden" name="form_source" value={source} />
     <!-- Honeypot — bots fill this; humans don't -->
@@ -142,14 +139,8 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? '';
       — it explains how agents represent buyers and sellers in North Carolina.
     </p>
 
-    {recaptchaSiteKey && (
-      <p class="text-[10px] leading-snug text-mountain-400">
-        This site is protected by reCAPTCHA and the Google
-        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="underline-offset-2 hover:text-sun-600">Privacy Policy</a>
-        and
-        <a href="https://policies.google.com/terms" target="_blank" rel="noopener" class="underline-offset-2 hover:text-sun-600">Terms of Service</a>
-        apply.
-      </p>
+    {hcaptchaSiteKey && (
+      <div class="h-captcha" data-sitekey={hcaptchaSiteKey} data-theme="light"></div>
     )}
 
     <button
@@ -163,60 +154,23 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? '';
 </section>
 
 <script is:inline>
-  // On submit:
-  // 1. If reCAPTCHA v3 site key is set, get a token and stuff it into
-  //    the hidden g-recaptcha-response field BEFORE Web3Forms accepts the post.
-  // 2. Fire the GA4 `generate_lead` event with form_source / budget /
-  //    timeline / intent so lead quality is segmentable in GA4.
-  // 3. Let the form submit normally to Web3Forms.
+  // hCaptcha runs as a visible checkbox widget rendered inside each form.
+  // The token is automatically injected into the hidden h-captcha-response
+  // field that the hCaptcha script inserts. Web3Forms picks it up server-side.
+  // We don't need to gate submission on the token — the user has to interact
+  // with the widget before Web3Forms accepts the post.
+  //
+  // What this script does is fire the GA4 generate_lead event on submit
+  // (lets us segment lead quality in GA4) — same as before.
   document.querySelectorAll('form[data-leadform-source]').forEach(function (form) {
-    var siteKey = form.getAttribute('data-recaptcha-site-key') || '';
-
-    function fireGtagAndSubmit() {
-      if (window.gtag) {
-        var fd = new FormData(form);
-        window.gtag('event', 'generate_lead', {
-          form_source: form.getAttribute('data-leadform-source'),
-          budget: fd.get('budget') || '',
-          timeline: fd.get('timeline') || '',
-          intent: fd.get('intent') || ''
-        });
-      }
-      // submit() bypasses the submit listener and avoids loop
-      HTMLFormElement.prototype.submit.call(form);
-    }
-
-    form.addEventListener('submit', function (e) {
-      // Honor native HTML5 validation first
-      if (!form.checkValidity()) return;
-
-      // No site key → behave as before (just GA4 + native submit)
-      if (!siteKey || typeof grecaptcha === 'undefined') {
-        // GA4 only, then let the browser's native submit happen
-        if (window.gtag) {
-          var fd = new FormData(form);
-          window.gtag('event', 'generate_lead', {
-            form_source: form.getAttribute('data-leadform-source'),
-            budget: fd.get('budget') || '',
-            timeline: fd.get('timeline') || '',
-            intent: fd.get('intent') || ''
-          });
-        }
-        return; // browser submits to Web3Forms
-      }
-
-      // reCAPTCHA path — block default submit, get token, then submit
-      e.preventDefault();
-      grecaptcha.ready(function () {
-        grecaptcha.execute(siteKey, { action: 'lead_form' }).then(function (token) {
-          var input = form.querySelector('input[name="g-recaptcha-response"]');
-          if (input) input.value = token;
-          fireGtagAndSubmit();
-        }).catch(function () {
-          // If reCAPTCHA fails, submit anyway — Web3Forms will reject if
-          // the secret key is set and required, otherwise it'll go through
-          fireGtagAndSubmit();
-        });
+    form.addEventListener('submit', function () {
+      if (!window.gtag) return;
+      var fd = new FormData(form);
+      window.gtag('event', 'generate_lead', {
+        form_source: form.getAttribute('data-leadform-source'),
+        budget: fd.get('budget') || '',
+        timeline: fd.get('timeline') || '',
+        intent: fd.get('intent') || ''
       });
     });
   });
