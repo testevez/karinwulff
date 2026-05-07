@@ -20,7 +20,7 @@ const {
 const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://api.web3forms.com/submit';
 const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? 'PLACEHOLDER_ACCESS_KEY';
 const bccEmail = import.meta.env.PUBLIC_FORM_BCC ?? 'tootast@gmail.com';
-const hcaptchaSiteKey = import.meta.env.PUBLIC_HCAPTCHA_SITE_KEY ?? '';
+const hcaptchaEnabled = import.meta.env.PUBLIC_HCAPTCHA_ENABLED === 'true';
 ---
 
 <section
@@ -139,8 +139,8 @@ const hcaptchaSiteKey = import.meta.env.PUBLIC_HCAPTCHA_SITE_KEY ?? '';
       — it explains how agents represent buyers and sellers in North Carolina.
     </p>
 
-    {hcaptchaSiteKey && (
-      <div class="h-captcha" data-sitekey={hcaptchaSiteKey} data-theme="light"></div>
+    {hcaptchaEnabled && (
+      <div class="h-captcha" data-captcha="true" data-theme="light"></div>
     )}
 
     <button
@@ -154,24 +154,38 @@ const hcaptchaSiteKey = import.meta.env.PUBLIC_HCAPTCHA_SITE_KEY ?? '';
 </section>
 
 <script is:inline>
-  // hCaptcha runs as a visible checkbox widget rendered inside each form.
-  // The token is automatically injected into the hidden h-captcha-response
-  // field that the hCaptcha script inserts. Web3Forms picks it up server-side.
-  // We don't need to gate submission on the token — the user has to interact
-  // with the widget before Web3Forms accepts the post.
-  //
-  // What this script does is fire the GA4 generate_lead event on submit
-  // (lets us segment lead quality in GA4) — same as before.
+  // On submit:
+  //   1. If the hCaptcha widget is present and unfilled, block submission
+  //      and surface an inline error message (Web3Forms recommends this
+  //      client-side check for better UX; their server-side validation is
+  //      the actual gatekeeper).
+  //   2. Fire GA4 `generate_lead` event with form_source / budget /
+  //      timeline / intent so lead quality is segmentable in GA4.
+  //   3. Let the form submit normally to Web3Forms.
   document.querySelectorAll('form[data-leadform-source]').forEach(function (form) {
-    form.addEventListener('submit', function () {
-      if (!window.gtag) return;
-      var fd = new FormData(form);
-      window.gtag('event', 'generate_lead', {
-        form_source: form.getAttribute('data-leadform-source'),
-        budget: fd.get('budget') || '',
-        timeline: fd.get('timeline') || '',
-        intent: fd.get('intent') || ''
-      });
+    form.addEventListener('submit', function (e) {
+      var captcha = form.querySelector('textarea[name="h-captcha-response"]');
+      if (captcha && !captcha.value) {
+        e.preventDefault();
+        var err = form.querySelector('.avlc-captcha-error');
+        if (!err) {
+          err = document.createElement('p');
+          err.className = 'avlc-captcha-error mt-2 text-xs text-red-600';
+          err.textContent = 'Please complete the captcha to send your message.';
+          var widget = form.querySelector('.h-captcha');
+          if (widget && widget.parentNode) widget.parentNode.insertBefore(err, widget.nextSibling);
+        }
+        return;
+      }
+      if (window.gtag) {
+        var fd = new FormData(form);
+        window.gtag('event', 'generate_lead', {
+          form_source: form.getAttribute('data-leadform-source'),
+          budget: fd.get('budget') || '',
+          timeline: fd.get('timeline') || '',
+          intent: fd.get('intent') || ''
+        });
+      }
     });
   });
 </script>

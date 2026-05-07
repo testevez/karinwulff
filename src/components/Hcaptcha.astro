@@ -1,18 +1,18 @@
 ---
-// hCaptcha — privacy-friendly anti-bot CAPTCHA, natively supported by
-// Web3Forms's free tier.
+// hCaptcha via Web3Forms's wrapper (zero-config on the free plan).
+// On the free plan, Web3Forms supplies the hCaptcha site/secret key — we
+// don't manage our own. The form widget is rendered with
+// data-captcha="true" (NOT data-sitekey) and Web3Forms's wrapper script
+// finds the markup, mounts the hCaptcha widget, and validates the
+// h-captcha-response token server-side at submit time.
 //
-// The site key is public (embedded in the HTML); the SECRET key lives
-// in the Web3Forms dashboard under Form Settings, where Web3Forms
-// validates the h-captcha-response token server-side on each submit.
-//
-// If PUBLIC_HCAPTCHA_SITE_KEY is empty the script doesn't load and
-// LeadForm.astro renders without the widget — submissions still go
-// through (Web3Forms only enforces CAPTCHA when configured).
+// PUBLIC_HCAPTCHA_ENABLED toggles the wrapper script + widget on/off.
+// (Keeping the user's personal site key in .env as a comment for the
+// future paid-plan migration path.)
 
-const siteKey = import.meta.env.PUBLIC_HCAPTCHA_SITE_KEY;
+const enabled = import.meta.env.PUBLIC_HCAPTCHA_ENABLED === 'true';
 ---
 
-{siteKey && (
-  <script is:inline async defer src="https://js.hcaptcha.com/1/api.js"></script>
+{enabled && (
+  <script is:inline async defer src="https://web3forms.com/client/script.js"></script>
 )}
