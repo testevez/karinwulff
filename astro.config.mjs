@@ -19,7 +19,13 @@ export default defineConfig({
       hmr: {
         clientPort: 4321,
       },
-      allowedHosts: true,
+      allowedHosts: ['avlcurious.ddev.site', 'localhost', '.ddev.site'],
+    },
+    preview: {
+      host: '0.0.0.0',
+      port: 4321,
+      strictPort: true,
+      allowedHosts: ['avlcurious.ddev.site', 'localhost', '.ddev.site'],
     },
   },
 });
