@@ -64,6 +64,10 @@ const listings = defineCollection({
     // Highlights for listing card / detail page
     features: z.array(z.string()).default([]),
 
+    // Curatorial badges shown as small pills on the card
+    // (e.g. "Showcase", "Just listed", "Off-market", "Price reduction")
+    badges: z.array(z.string()).default([]),
+
     // IDX compliance — required when listing is from Canopy MLS but Karin
     // is not the listing agent. Placeholder for samples.
     listing_broker: z

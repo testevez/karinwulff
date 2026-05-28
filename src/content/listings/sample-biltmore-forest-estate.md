@@ -34,6 +34,8 @@ features:
   - Private guest wing
   - Three-car garage with workshop
   - Heated outdoor terrace
+badges:
+  - Showcase
 listed_on: 2026-04-12
 ---
 

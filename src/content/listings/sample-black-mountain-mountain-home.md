@@ -34,6 +34,8 @@ features:
   - Primary suite with private deck
   - Walk-out lower level — second living space
   - Five-minute drive to downtown Black Mountain
+badges:
+  - Showcase
 listed_on: 2026-04-22
 ---
 

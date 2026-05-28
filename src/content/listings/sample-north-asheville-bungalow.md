@@ -34,6 +34,8 @@ features:
   - Fenced backyard
   - Two-block walk to Beaverdam Park
   - Nine-minute drive to downtown
+badges:
+  - Showcase
 listed_on: 2026-04-29
 ---
 

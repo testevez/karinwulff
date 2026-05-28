@@ -18,7 +18,6 @@ const fmt = new Intl.NumberFormat('en-US');
 const sqft = d.sqft ? `${fmt.format(d.sqft)} sqft` : null;
 const lot = d.lot_acres ? `${d.lot_acres.toFixed(2)} ac` : null;
 
-const isSample = d.source === 'sample';
 ---
 
 <article class="group overflow-hidden rounded-lg border border-mountain-200 bg-white transition-shadow hover:shadow-md">
@@ -30,10 +29,14 @@ const isSample = d.source === 'sample';
         loading="lazy"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
-      {isSample && (
-        <span class="absolute left-3 top-3 rounded-full bg-mountain-900/90 px-3 py-1 text-xs font-medium text-cream">
-          Sample
-        </span>
+      {d.badges && d.badges.length > 0 && (
+        <div class="absolute left-3 top-3 flex flex-wrap gap-1.5">
+          {d.badges.map((badge) => (
+            <span class="rounded-full bg-sun-500 px-3 py-1 text-xs font-medium uppercase tracking-wider text-mountain-900 shadow-sm">
+              {badge}
+            </span>
+          ))}
+        </div>
       )}
     </div>
     <div class="p-5">
