@@ -104,7 +104,7 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
             <img
               src={d.hero_image}
               alt={`${d.title} — exterior`}
-              class="aspect-[4/3] w-full object-cover sm:aspect-[16/10]"
+              class="aspect-4/3 w-full object-cover sm:aspect-16/10"
             />
           </div>
           {d.photos.slice(0, 4).map((photo) => (
@@ -113,7 +113,7 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
                 src={photo.src}
                 alt={photo.alt}
                 loading="lazy"
-                class="aspect-[4/3] w-full object-cover"
+                class="aspect-4/3 w-full object-cover"
               />
             </div>
           ))}

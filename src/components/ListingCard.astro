@@ -22,7 +22,7 @@ const lot = d.lot_acres ? `${d.lot_acres.toFixed(2)} ac` : null;
 
 <article class="group overflow-hidden rounded-lg border border-mountain-200 bg-white transition-shadow hover:shadow-md">
   <a href={`/listing/${listing.id}/`} class="block no-underline">
-    <div class="relative aspect-[4/3] overflow-hidden bg-mountain-100">
+    <div class="relative aspect-4/3 overflow-hidden bg-mountain-100">
       <img
         src={d.hero_image}
         alt={`${d.title} — ${d.address.city}, ${d.address.state}`}
