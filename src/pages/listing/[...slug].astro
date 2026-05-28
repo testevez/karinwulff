@@ -93,7 +93,7 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
   image={d.hero_image}
   noindex={isSample}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonld)} />
 
   <article>
     <!-- Hero gallery -->
