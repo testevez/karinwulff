@@ -92,9 +92,9 @@ const reviews = featured.map((t) => ({
       ))}
     </div>
 
-    <script type="application/ld+json" set:html={JSON.stringify(aggregateRating)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(aggregateRating)} />
     {reviews.map((r) => (
-      <script type="application/ld+json" set:html={JSON.stringify(r)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(r)} />
     ))}
   </div>
 </section>

@@ -43,7 +43,7 @@ const fullTitle = title.includes('AVL Curious') ? title : `${title} · AVL Curio
 <meta name="twitter:image" content={ogImage} />
 
 <!-- JSON-LD: RealEstateAgent + Organization (Karin as agent of record at AVL Curious) -->
-<script type="application/ld+json" set:html={JSON.stringify({
+<script is:inline type="application/ld+json" set:html={JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'RealEstateAgent',
   name: 'Karin Wulff',
