@@ -45,3 +45,16 @@ resource "aws_route53_record" "www_aaaa" {
     evaluate_target_health = false
   }
 }
+
+# Apex TXT records. Route 53 allows only one TXT record set per name, so every
+# apex TXT value (site verifications, SPF, ...) goes in this one list.
+resource "aws_route53_record" "apex_txt" {
+  zone_id = var.hosted_zone_id
+  name    = local.apex_domain
+  type    = "TXT"
+  ttl     = 300
+  records = [
+    # Google Search Console domain property (added 2026-10-17)
+    "google-site-verification=BOSb7-3UdAuxa-lH7hQ09FAOsbkJJXyn8psqWY2lDx4",
+  ]
+}
