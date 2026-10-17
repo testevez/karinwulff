@@ -6,17 +6,31 @@ resource "aws_cloudfront_origin_access_control" "site" {
   signing_protocol                  = "sigv4"
 }
 
-# Rewrites pretty URLs to /<path>/index.html so Astro's per-folder index files
-# resolve correctly under CloudFront + S3.
+# 301s www to the apex domain (one canonical host for SEO), then rewrites
+# pretty URLs to /<path>/index.html so Astro's per-folder index files resolve
+# correctly under CloudFront + S3.
 resource "aws_cloudfront_function" "rewrite_index" {
   name    = "avlcurious-rewrite-index"
   runtime = "cloudfront-js-2.0"
-  comment = "Append index.html to URIs that need it"
+  comment = "Redirect www to apex; append index.html to URIs that need it"
   publish = true
   code    = <<-EOT
     function handler(event) {
       var request = event.request;
       var uri = request.uri;
+      var host = request.headers.host && request.headers.host.value;
+      if (host === '${local.www_domain}') {
+        var qs = Object.keys(request.querystring).map(function (k) {
+          var q = request.querystring[k];
+          var vals = q.multiValue ? q.multiValue : [q];
+          return vals.map(function (v) { return k + (v.value ? '=' + v.value : ''); }).join('&');
+        }).join('&');
+        return {
+          statusCode: 301,
+          statusDescription: 'Moved Permanently',
+          headers: { location: { value: 'https://${local.apex_domain}' + uri + (qs ? '?' + qs : '') } },
+        };
+      }
       if (uri.endsWith('/')) {
         request.uri = uri + 'index.html';
       } else if (!uri.includes('.')) {

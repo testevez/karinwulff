@@ -1,0 +1,8 @@
+# Persist gcloud sign-in across DDEV restarts. Credentials live on the host in
+# ~/.config/gcloud-ddev (outside the repo), mounted read-write because gcloud
+# refreshes its tokens in place. Used for the Google Analytics and Search
+# Console APIs.
+services:
+  web:
+    volumes:
+      - "${HOME}/.config/gcloud-ddev:/home/${USER}/.config/gcloud:rw,cached"

@@ -6,6 +6,7 @@ import Footer from '@/components/Footer.astro';
 import Analytics from '@/components/Analytics.astro';
 import ConsentBanner from '@/components/ConsentBanner.astro';
 import Hcaptcha from '@/components/Hcaptcha.astro';
+import MobileContactBar from '@/components/MobileContactBar.astro';
 
 interface Props {
   title: string;
@@ -29,13 +30,14 @@ const analyticsActive = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
     <Analytics />
     <Hcaptcha />
   </head>
-  <body class="flex min-h-screen flex-col">
+  <body class="flex min-h-screen flex-col pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))] md:pb-0">
     <a href="#main" class="skip-link">Skip to content</a>
     <Header />
     <main id="main" class="flex-1">
       <slot />
     </main>
     <Footer />
+    <MobileContactBar />
     {analyticsActive && <ConsentBanner />}
   </body>
 </html>

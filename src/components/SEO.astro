@@ -3,6 +3,7 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  imageAlt?: string;
   noindex?: boolean;
   canonical?: string;
 }
@@ -11,16 +12,125 @@ const {
   title,
   description,
   image = '/og-default.jpg',
+  imageAlt = 'AVL Curious — Asheville & WNC real estate with Karin Wulff, Realtor® at Nexus Realty',
   noindex = false,
   canonical,
 } = Astro.props;
 
+const site = Astro.site!.toString();
 const canonicalURL = canonical
   ? new URL(canonical, Astro.site)
   : new URL(Astro.url.pathname, Astro.site);
 
 const ogImage = new URL(image, Astro.site).toString();
 const fullTitle = title.includes('AVL Curious') ? title : `${title} · AVL Curious`;
+
+// Stable entity IDs so every page describes the same Karin / brand / brokerage.
+const ids = {
+  website: `${site}#website`,
+  brand: `${site}#avlcurious`,
+  karin: `${site}#karin`,
+  nexus: `${site}#nexus`,
+};
+
+// Keep in sync with the "Karin around the web" links in Footer.astro.
+const karinProfiles = [
+  'https://www.nexusrealtync.com/agents/342339-Karin-Wulff/',
+  'https://www.zillow.com/profile/wolfgrl1',
+  'https://www.homes.com/real-estate-agents/karin-wulff/el9tr5p/',
+  'https://www.linkedin.com/in/karin-wulff-0309968/',
+];
+const brandProfiles = ['https://www.instagram.com/avlcurious/'];
+
+const nexusAddress = {
+  '@type': 'PostalAddress',
+  streetAddress: '100 Julian Shoals Drive',
+  addressLocality: 'Arden',
+  addressRegion: 'NC',
+  postalCode: '28704',
+  addressCountry: 'US',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': ids.website,
+      url: site,
+      name: 'AVL Curious',
+      inLanguage: 'en-US',
+      publisher: { '@id': ids.brand },
+    },
+    {
+      '@type': 'Organization',
+      '@id': ids.brand,
+      name: 'AVL Curious',
+      url: site,
+      image: new URL('/og-default.jpg', Astro.site).toString(),
+      sameAs: brandProfiles,
+      founder: { '@id': ids.karin },
+    },
+    {
+      '@type': 'RealEstateAgent',
+      '@id': ids.karin,
+      name: 'Karin Wulff',
+      url: new URL('/about/', Astro.site).toString(),
+      image: new URL('/karin-headshot.jpg', Astro.site).toString(),
+      jobTitle: 'Realtor®',
+      telephone: '+12017256428',
+      email: 'karin@fuzzywolfsales.com',
+      address: nexusAddress,
+      parentOrganization: { '@id': ids.nexus },
+      memberOf: { '@type': 'Organization', name: 'National Association of REALTORS®' },
+      hasCredential: {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'license',
+        name: 'North Carolina Real Estate Broker License',
+        identifier: '364628',
+        recognizedBy: { '@type': 'Organization', name: 'North Carolina Real Estate Commission' },
+      },
+      knowsAbout: [
+        'Asheville real estate',
+        'Western North Carolina real estate',
+        'Buyer representation',
+        'Home selling',
+      ],
+      areaServed: [
+        { '@type': 'City', name: 'Asheville, NC' },
+        { '@type': 'City', name: 'Black Mountain, NC' },
+        { '@type': 'City', name: 'Weaverville, NC' },
+        { '@type': 'City', name: 'Hendersonville, NC' },
+        { '@type': 'City', name: 'Brevard, NC' },
+        { '@type': 'City', name: 'Lake Lure, NC' },
+        { '@type': 'AdministrativeArea', name: 'Buncombe County, NC' },
+        { '@type': 'AdministrativeArea', name: 'Henderson County, NC' },
+        { '@type': 'AdministrativeArea', name: 'Madison County, NC' },
+        { '@type': 'AdministrativeArea', name: 'Haywood County, NC' },
+      ],
+      sameAs: karinProfiles,
+    },
+    {
+      '@type': 'RealEstateOrganization',
+      '@id': ids.nexus,
+      name: 'Nexus Realty',
+      url: 'https://www.nexusrealtync.com/',
+      telephone: '+18285852188',
+      address: nexusAddress,
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalURL.toString()}#webpage`,
+      url: canonicalURL.toString(),
+      name: fullTitle,
+      description,
+      isPartOf: { '@id': ids.website },
+      about: { '@id': ids.karin },
+      primaryImageOfPage: { '@type': 'ImageObject', url: ogImage },
+      inLanguage: 'en-US',
+    },
+  ],
+};
 ---
 
 <title>{fullTitle}</title>
@@ -30,10 +140,14 @@ const fullTitle = title.includes('AVL Curious') ? title : `${title} · AVL Curio
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
 <meta property="og:url" content={canonicalURL.toString()} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
+{image === '/og-default.jpg' && <meta property="og:image:width" content="1200" />}
+{image === '/og-default.jpg' && <meta property="og:image:height" content="630" />}
+<meta property="og:image:alt" content={imageAlt} />
 <meta property="og:site_name" content="AVL Curious" />
 
 <!-- Twitter -->
@@ -41,35 +155,7 @@ const fullTitle = title.includes('AVL Curious') ? title : `${title} · AVL Curio
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={imageAlt} />
 
-<!-- JSON-LD: RealEstateAgent + Organization (Karin as agent of record at AVL Curious) -->
-<script is:inline type="application/ld+json" set:html={JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'RealEstateAgent',
-  name: 'Karin Wulff',
-  url: Astro.site?.toString(),
-  image: new URL('/karin-headshot.jpg', Astro.site).toString(),
-  jobTitle: 'Realtor®',
-  worksFor: {
-    '@type': 'RealEstateOrganization',
-    name: 'Nexus Realty',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: '100 Julian Shoals Drive',
-      addressLocality: 'Arden',
-      addressRegion: 'NC',
-      postalCode: '28704',
-      addressCountry: 'US',
-    },
-    telephone: '+18285852188',
-  },
-  telephone: '+12017256428',
-  email: 'karin@fuzzywolfsales.com',
-  areaServed: [
-    { '@type': 'City', name: 'Asheville' },
-    { '@type': 'City', name: 'Black Mountain' },
-    { '@type': 'City', name: 'Hendersonville' },
-    { '@type': 'City', name: 'Weaverville' },
-    { '@type': 'AdministrativeArea', name: 'Western North Carolina' },
-  ],
-})} />
+<!-- JSON-LD: one connected graph — the AVL Curious site/brand, Karin as the agent, Nexus as her brokerage -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

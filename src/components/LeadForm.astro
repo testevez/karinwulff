@@ -19,7 +19,7 @@ const {
 // Until then submissions are dropped (placeholder key).
 const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://api.web3forms.com/submit';
 const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? 'PLACEHOLDER_ACCESS_KEY';
-const bccEmail = import.meta.env.PUBLIC_FORM_BCC ?? 'tootast@gmail.com';
+const bccEmail = import.meta.env.PUBLIC_FORM_BCC ?? 'tootoast@gmail.com';
 const hcaptchaEnabled = import.meta.env.PUBLIC_HCAPTCHA_ENABLED === 'true';
 ---
 
@@ -87,15 +87,29 @@ const hcaptchaEnabled = import.meta.env.PUBLIC_HCAPTCHA_ENABLED === 'true';
       <legend class="text-sm font-medium text-mountain-800">Budget range</legend>
       <div class="grid gap-1 sm:grid-cols-2">
         {[
-          'Under $500K',
+          'Under $350K',
+          '$350K – $500K',
           '$500K – $750K',
           '$750K – $1M',
-          '$1M – $2M',
-          '$2M+',
+          '$1M+',
           'Just exploring',
         ].map((label) => (
           <label class="flex items-center gap-2 text-sm">
             <input type="radio" name="budget" value={label} required class="h-4 w-4 accent-sun-500" />
+            <span>{label}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <!-- Cash buyers are Karin's priority lead in a high-rate market; the
+         submit handler flags them in the email subject. Optional field. -->
+    <fieldset class="space-y-2">
+      <legend class="text-sm font-medium text-mountain-800">If buying, how would you pay?</legend>
+      <div class="grid gap-1 sm:grid-cols-3">
+        {['Cash', 'Mortgage', 'Not sure yet'].map((label) => (
+          <label class="flex items-center gap-2 text-sm">
+            <input type="radio" name="financing" value={label} class="h-4 w-4 accent-sun-500" />
             <span>{label}</span>
           </label>
         ))}
@@ -159,9 +173,10 @@ const hcaptchaEnabled = import.meta.env.PUBLIC_HCAPTCHA_ENABLED === 'true';
   //      and surface an inline error message (Web3Forms recommends this
   //      client-side check for better UX; their server-side validation is
   //      the actual gatekeeper).
-  //   2. Fire GA4 `generate_lead` event with form_source / budget /
-  //      timeline / intent so lead quality is segmentable in GA4.
-  //   3. Let the form submit normally to Web3Forms.
+  //   2. Prefix the email subject with [CASH BUYER] when they pay cash.
+  //   3. Fire GA4 `generate_lead` event with form_source / budget /
+  //      timeline / intent / financing so lead quality is segmentable in GA4.
+  //   4. Let the form submit normally to Web3Forms.
   document.querySelectorAll('form[data-leadform-source]').forEach(function (form) {
     form.addEventListener('submit', function (e) {
       var captcha = form.querySelector('textarea[name="h-captcha-response"]');
@@ -177,13 +192,18 @@ const hcaptchaEnabled = import.meta.env.PUBLIC_HCAPTCHA_ENABLED === 'true';
         }
         return;
       }
+      var fd = new FormData(form);
+      if (fd.get('financing') === 'Cash') {
+        var subject = form.querySelector('input[name="subject"]');
+        if (subject && subject.value.indexOf('[CASH BUYER]') !== 0) subject.value = '[CASH BUYER] ' + subject.value;
+      }
       if (window.gtag) {
-        var fd = new FormData(form);
         window.gtag('event', 'generate_lead', {
           form_source: form.getAttribute('data-leadform-source'),
           budget: fd.get('budget') || '',
           timeline: fd.get('timeline') || '',
-          intent: fd.get('intent') || ''
+          intent: fd.get('intent') || '',
+          financing: fd.get('financing') || ''
         });
       }
     });

@@ -45,6 +45,18 @@ const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
       gtag('js', new Date());
       gtag('config', measurementId);
+
+      // Count phone, text and email taps as leads too (form submits fire
+      // generate_lead from LeadForm.astro). Mark both as key events in GA4.
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="sms:"], a[href^="mailto:"]');
+        if (!a) return;
+        var scheme = a.getAttribute('href').split(':')[0];
+        var name = { tel: 'phone_click', sms: 'text_click', mailto: 'email_click' }[scheme];
+        gtag('event', name, {
+          link_location: location.pathname
+        });
+      });
     </script>
   </>
 )}
