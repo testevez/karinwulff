@@ -1,8 +1,9 @@
 # Mount the host's AWS config + SSO cache into the web container so the
-# `avlcurious` SSO profile works inside DDEV without re-logging-in.
+# `avlcurious` SSO profile works inside DDEV without re-logging-in. Read-write
+# so the AWS CLI and Terraform can refresh SSO tokens and write their cache.
 # We mirror the host path inside the container so the AWS CLI's default
 # `~/.aws` lookup resolves correctly.
 services:
   web:
     volumes:
-      - "${HOME}/.aws:/home/${USER}/.aws:ro,cached"
+      - "${HOME}/.aws:/home/${USER}/.aws:rw,cached"

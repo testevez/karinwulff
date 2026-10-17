@@ -135,6 +135,18 @@ resource "aws_route53_record" "redirect_alias" {
   }
 }
 
+# Apex TXT records for karinwulff.com (one record set per name in Route 53).
+resource "aws_route53_record" "redirect_apex_txt" {
+  zone_id = data.aws_route53_zone.redirect.zone_id
+  name    = local.redirect_apex
+  type    = "TXT"
+  ttl     = 300
+  records = [
+    # Google Search Console domain property (added 2026-10-17)
+    "google-site-verification=7TfW7t_zQkrAzf3AwpjM0m_YUUMT74tD5DGUJ992BWg",
+  ]
+}
+
 output "redirect_distribution_id" {
   description = "CloudFront distribution serving the karinwulff.com redirect."
   value       = aws_cloudfront_distribution.redirect.id
