@@ -44,3 +44,6 @@ sold/
 **/*.tfstate.*
 **/*.tfvars
 **/.terraform.lock.hcl
+
+# Local secrets/notes — never commit
+secret/
