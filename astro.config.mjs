@@ -26,6 +26,9 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
+      // Pages marked noindex (privacy, accessibility) stay out of the sitemap;
+      // listing them sends Google contradictory signals.
+      filter: (page) => !/\/(privacy|accessibility)\/$/.test(page),
       serialize(item) {
         const lastmod = lastModified(new URL(item.url).pathname);
         return lastmod ? { ...item, lastmod } : item;
